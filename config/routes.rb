@@ -3,7 +3,11 @@ EmployPerf::Application.routes.draw do
 
   devise_for :users
   devise_for :users, :controllers => {:sessions => "sessions"}
-  resources :evaluations
+  resources :evaluations do
+		member do
+			get 'evaluation_update'
+		end
+	end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

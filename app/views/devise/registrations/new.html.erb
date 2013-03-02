@@ -13,8 +13,8 @@
   <%= f.password_field :password_confirmation %></div>
   
    <div><%= f.label :role %><br />
-  <%= select(:user, :role_id, [['employee', 1], ['manager', 2], ['teamleader', 3]]) %>
-  
+  <%= select("user", "role_id", Role.all.collect {|p| [ p.role, p.id ] }, {:prompt =>'Select role'})%>
+ 
  <div><%= f.label :firstname %><br />
   <%= f.text_field :firstname %></div>
   

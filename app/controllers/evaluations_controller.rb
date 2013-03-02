@@ -5,12 +5,13 @@ class EvaluationsController < ApplicationController
 	end
 	
 	def new
-		@values=Value.all.map(&:description)
-		@evaluation=Evaluation.new
+		#@managers =  User.where("role_id = ?", 2)
+		@values = Value.all
+		@evaluation = Evaluation.new
 	end
 	
 	def create
-		@evaluation=current_user.evaluations.new(params[:evaluation])
+ 	        @evaluation=current_user.evaluations.new(params[:evaluation])
 		if @evaluation.save
 			render :action => :show
 		else

@@ -8,7 +8,7 @@ class CreateEvaluations < ActiveRecord::Migration
       t.integer :evaluation_period_id
       t.integer :value_id
       t.integer :user_id
-
+      t.integer :manager_id
       t.timestamps
     end
   end
