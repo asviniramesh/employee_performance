@@ -4,7 +4,6 @@ class CreateEvaluationPeriods < ActiveRecord::Migration
       t.time :eval_start_date
       t.time :eval_end_date
       t.integer :team_id
-
       t.timestamps
     end
   end

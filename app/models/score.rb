@@ -1,3 +1,3 @@
 class Score < ActiveRecord::Base
-  attr_accessible :description, :score_level
+  attr_accessible :description, :level
 end

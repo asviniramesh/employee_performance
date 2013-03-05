@@ -1,5 +1,5 @@
 class Value < ActiveRecord::Base
-  attr_accessible :description
+  attr_accessible :description, :title
   has_many :team_values
   has_many :teams, :through => :team_values
   has_many :evaluations

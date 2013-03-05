@@ -61,8 +61,7 @@ RailsAdmin.config do |config|
   #   # Found associations:
 
 
-
-  #   # Found columns:
+#   # Found columns:
 
   #     configure :id, :integer 
   #     configure :email, :string 

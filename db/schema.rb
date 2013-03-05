@@ -11,13 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130220061242) do
+ActiveRecord::Schema.define(:version => 20130305091849) do
+
+  create_table "employees", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "manager_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "employees", ["manager_id"], :name => "index_employees_on_manager_id"
+  add_index "employees", ["user_id"], :name => "index_employees_on_user_id"
 
   create_table "evaluation_intervals", :force => true do |t|
     t.integer  "team_id"
-    t.integer  "interval_format_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.time     "frequency"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "evaluation_periods", :force => true do |t|
@@ -31,8 +41,10 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
   create_table "evaluations", :force => true do |t|
     t.integer  "self_points"
     t.integer  "manager_points"
+    t.integer  "final_points"
     t.text     "self_comments"
     t.text     "manager_comments"
+    t.text     "final_comments"
     t.integer  "evaluation_period_id"
     t.integer  "value_id"
     t.integer  "user_id"
@@ -41,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
   end
 
   create_table "interval_formats", :force => true do |t|
-    t.time     "frequency"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -60,13 +71,13 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
   add_index "rails_admin_histories", ["item", "table", "month", "year"], :name => "index_rails_admin_histories"
 
   create_table "roles", :force => true do |t|
-    t.string   "role"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "role_description"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "scores", :force => true do |t|
-    t.integer  "score_level"
+    t.integer  "level"
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -81,9 +92,8 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
 
   create_table "teams", :force => true do |t|
     t.string   "name"
-    t.text     "designation"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "user_histories", :force => true do |t|
@@ -92,8 +102,16 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
     t.integer  "evaluation_period_id"
     t.time     "date"
     t.integer  "totalpoints"
+    t.integer  "manager_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+  end
+
+  create_table "user_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -105,6 +123,7 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
     t.text     "address"
     t.integer  "team_id"
     t.integer  "role_id"
+    t.string   "designation"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -124,8 +143,9 @@ ActiveRecord::Schema.define(:version => 20130220061242) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
-  create_table "vals", :force => true do |t|
+  create_table "values", :force => true do |t|
     t.text     "description"
+    t.text     "title"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

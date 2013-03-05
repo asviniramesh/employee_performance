@@ -6,7 +6,7 @@ class CreateUserHistories < ActiveRecord::Migration
       t.integer :evaluation_period_id
       t.time :date
       t.integer :totalpoints
-
+      t.integer :manager_id
       t.timestamps
     end
   end

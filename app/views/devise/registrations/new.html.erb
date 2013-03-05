@@ -13,7 +13,10 @@
   <%= f.password_field :password_confirmation %></div>
   
    <div><%= f.label :role %><br />
-  <%= select("user", "role_id", Role.all.collect {|p| [ p.role, p.id ] }, {:prompt =>'Select role'})%>
+  <%= select("user", "role_id", Role.all.collect {|p| [ p.role_description, p.id ] }, {:prompt =>'Select role'})%><br>
+  
+    <%= f.label :SelectTeam %><br />
+    <%= f.select("team_id",  Team.all.collect{|c| [c.name, c.id]}, {:prompt =>'Select team'})%><br>
  
  <div><%= f.label :firstname %><br />
   <%= f.text_field :firstname %></div>
