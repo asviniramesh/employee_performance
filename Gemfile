@@ -11,6 +11,8 @@ gem 'devise'
 gem 'cancan'
 gem 'rails_admin'
 
+gem 'foreigner'
+
 
 
 # Gems used only for assets and not required

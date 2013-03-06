@@ -8,6 +8,9 @@ EmployPerf::Application.routes.draw do
 			get 'evaluation_update'
 		end
 	end
+	
+	resources :employee_heirarchies
+	
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
