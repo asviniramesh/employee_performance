@@ -5,12 +5,6 @@ class EvaluationsController < ApplicationController
 	end
 	
 	def new
-		@team=TeamValue.where("team_id= ?",1)
-		 @team.each do |a|
-			@tea = a.value.description
-			p @tea
-			p 1111
-			end
 		#@managers =  User.where("role_id = ?", 2)
 		@values = Value.all
 		@evaluation = Evaluation.new

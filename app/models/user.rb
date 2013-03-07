@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :phonenum, :address, :team_id, :role_id, :evaulation,:manager_id
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :firstname, :lastname, :phonenum, :address, :team_id, :role_id, :evaulation
   belongs_to :team
  # belongs_to :role
   has_many :evaluations
@@ -27,15 +27,14 @@ rails_admin do
       field :password_confirmation
       field :team_id
       field :role_id
-      field :manager_id
-  	end
+    end
     show do 
       field :email
       field :password
       field :password_confirmation
       field :team_id
       field :role_id
-      field :manager_id
+ 
     end
     edit do 
       field :email
@@ -43,7 +42,7 @@ rails_admin do
       field :password_confirmation
       field :team_id
       field :role_id
-      field :manager_id
+     
     end
   end
 end
