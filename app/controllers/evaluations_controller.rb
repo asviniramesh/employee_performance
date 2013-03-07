@@ -5,26 +5,52 @@ class EvaluationsController < ApplicationController
 	end
 	
 	def new
-		#@managers =  User.where("role_id = ?", 2)
+
 		@values = Value.all
+		@managers = EmployeeHeirarchy.employees(current_user.id).collect{|employee| User.find(employee.manager_id)}
 		@evaluation = Evaluation.new
 	end
 	
+	def save_evaluations(params)
+	
+  	evaluation_records = params.select{|param| param.match(/^evaluation/)}
+    
+    value_ids = evaluation_records.keys.collect{|rec| rec.split("-")[2]}.uniq!
+    @eval = Evaluation.new
+    @saved = false
+    
+    value_ids.each do |item|
+      
+      evaluation_records.each do |evaluation|
+        if evaluation.first.split("-")[2] == item 
+          @eval[evaluation.first.split("-")[1]] = evaluation.last.split.join
+        else
+          break if !@saved
+        end        
+      end
+      saved = @eval.save
+      @eval = Evaluation.new
+      @saved = true
+      saved
+    end
+  
+	end
+	
 	def create
- 	        @evaluation=current_user.evaluations.new(params[:evaluation])
-		if @evaluation.save
-			render :action => :show
+	  
+	 if save_evaluations(params)
+      redirect_to :action => :edit
 		else
 			render :action => :new
-		end
+		end  
 	end
 	
 	def show
-		@evaluation = Evaluation.find(params[:id])
+		@evaluations = Evaluation.where(:id => params[:id])
 	end
 	
 	def edit
-		@evaluation = Evaluation.find(params[:id])
+   @evaluations = Evaluation.where(:user_id => current_user.id)
 	end
 	
 	def update

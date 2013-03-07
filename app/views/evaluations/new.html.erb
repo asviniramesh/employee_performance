@@ -1,24 +1,15 @@
-<% @values.each do |value| %>
-<%= value.title%><br>
-<%= value.description%><br/>
-	<%= form_for @evaluation do |f| %>
-		<%= f.label :SelfPoints %>
-		<%#= f.text_field :self_points%>
-<%= f.select("self_points",  Score.all.collect {|c| [c.level, c.id]}, {:prompt =>'Select points'})%><br>
+<%= form_tag("/evaluations") do %>
 
-		<%= f.label :SelfComments %>
-		<%= f.text_field :self_comments%><br>
+        <% @values.each do |value| %>
+                <%= value.title%><br>
+                <%= value.description%><br/>
+                <%= label_tag :SelfPoints %>
+                <%= select("evaluation-self_points-"+value.id.to_s,"", Score.all.collect {|c| [c.level, c.id]}, :prompt =>'Select points')%><br>
+                <%= label_tag :SelfComments %>
+                <%= text_field_tag "evaluation-self_comments-"+value.id.to_s%><br>
+        <% end %>
 
-		<%#= f.label :ManagerPoints %>
-		<%#= f.text_field :manager_points%>
+  
+  <%= submit_tag("Submit Evaluation") %>
 
-		<%#= f.label :ManagerComments %>
-		<%#= f.text_field :manager_comments%>
-		
-		<%= f.hidden_field :value_id, :value => value.id %>
-		<%= f.label :SelectManager %>
-    <%#= f.select("manager_id",  Employee.all.collect {|c| [c.manager_id, c.id]})%><br>
-		<%= f.submit "submit" %><br/><br/>
-  <% end %>
 <% end %>
-

@@ -1,4 +1,6 @@
 class EmployeeHeirarchy < ActiveRecord::Base
-  belongs_to :employee, :class_name => User, :foreign_key => 'employee_id'
-  belongs_to :manager, :class_name => User, :foreign_key => 'manager_id'
+
+scope :employees,  lambda {|employee_id| {:conditions => ['employee_id = ?',employee_id] }}
+scope :managers, lambda {|manager_id| {:conditions => ['manager_id = ?',manager_id] }}
+
 end
