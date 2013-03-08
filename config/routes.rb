@@ -8,6 +8,9 @@ EmployPerf::Application.routes.draw do
 			get 'evaluation_update'
 		end
 	end
+
+
+  match '/evaluations/modify' =>'evaluations#modify'
 	
 	resources :employee_heirarchies
 	

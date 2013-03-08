@@ -27,6 +27,7 @@ rails_admin do
       field :password_confirmation
       field :team_id
       field :role_id
+      field :firstname
     end
     show do 
       field :email
@@ -34,7 +35,7 @@ rails_admin do
       field :password_confirmation
       field :team_id
       field :role_id
- 
+      field :firstname
     end
     edit do 
       field :email
@@ -42,7 +43,7 @@ rails_admin do
       field :password_confirmation
       field :team_id
       field :role_id
-     
+      field :firstname
     end
   end
 end

@@ -51,12 +51,7 @@
 						Content
 					  </div>
 					</div><div style=" width:100%; padding: 10px 10px 10px 0;">
-							<select >
-							<option>Select Manager</option>
-							<option>1</option>
-							<option>1</option>
-							<option>1</option>
-							</select>
+          <%= select("","evaluation-manager_id",  @managers,{:prompt => 'Select Manager'}) %>
 							<!--input type="button" class="save_btn"  value="Save" /-->
               <%= submit_tag "Save", :class => "save_btn"%>
               <%#= submit_tag("Submit Evaluation") %></div>

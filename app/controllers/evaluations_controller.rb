@@ -6,24 +6,40 @@ class EvaluationsController < ApplicationController
 	
 	def new
 
+	@period=current_user.team
+		@interval=@period.evaluation_intervals.each do |l|
+    @check = l.frequency
+    end
+			 @interval.each do |e|
+				@menu = e.id
+			 end
+		@ep = EvaluationPeriod.new
+		@ep.eval_start_date = Date.today.at_beginning_of_month
+		@ep.eval_end_date = Date.today.at_end_of_month
+		@ep.team_id = @period.id
+		@ep.evaluation_interval_id = @menu
+   
+
+
 		@values = Value.all
-		@managers = EmployeeHeirarchy.employees(current_user.id).collect{|employee| User.find(employee.manager_id)}
+		@managers = EmployeeHeirarchy.employees(current_user.id).collect{|employee| [User.find(employee.manager_id).firstname,User.find(employee.manager_id).id]}
 		@evaluation = Evaluation.new
 	end
 	
 	def save_evaluations(params)
-	
   	evaluation_records = params.select{|param| param.match(/^evaluation/)}
-    
+			evaluation_records.each do |evaluation|
+			evaluation.first.split("-")[1] == "manager_id"
+			@manager_id = evaluation.last.split.join
+		end
     value_ids = evaluation_records.keys.collect{|rec| rec.split("-")[2]}.uniq!
     @eval = Evaluation.new
     @saved = false
-    
     value_ids.each do |item|
-      
       evaluation_records.each do |evaluation|
         if evaluation.first.split("-")[2] == item 
           @eval[evaluation.first.split("-")[1]] = evaluation.last.split.join
+          @eval["manager_id"] = @manager_id
         else
           break if !@saved
         end        
@@ -39,7 +55,7 @@ class EvaluationsController < ApplicationController
 	def create
 	  
 	 if save_evaluations(params)
-      redirect_to :action => :edit
+      render :action => :modify
 		else
 			render :action => :new
 		end  
@@ -49,7 +65,7 @@ class EvaluationsController < ApplicationController
 		@evaluations = Evaluation.where(:id => params[:id])
 	end
 	
-	def edit
+	def modify
    @evaluations = Evaluation.where(:user_id => current_user.id)
 	end
 	
@@ -69,9 +85,5 @@ class EvaluationsController < ApplicationController
 	
 	def first
 	end
-	
-	#~ def values
-		#~ @value=Evaluation.find(params[:id]).value.description
-	#~ end
 	
 end
