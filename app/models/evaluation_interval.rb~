@@ -1,5 +1,0 @@
-class EvaluationInterval < ActiveRecord::Base
-	#after_save :create_eval_period
-  attr_accessible :frequency, :team_id
-  belongs_to :team
-end
