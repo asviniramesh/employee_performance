@@ -1,0 +1,63 @@
+
+EmployeeHeirarchy.where(:employee_id=>current_user.id).collect { |d| [d.manager_id, d.id] }
+<%= @ep.eval_start_date%><br><%=@ep.eval_end_date%>
+<%= hidden_field_tag :evaluation_interval_id %>
+
+
+<%= form_for (@evaluation) do |f| %>
+<%= f.label :Selfpoints %>
+<%= f.text_field :self_points%><br>
+
+<%= f.label :SelfComments %>
+<%= f.text_field :self_comments%><br>
+
+<%= f.label :ManagerPoints %>
+<%= f.text_field :manager_points%><br>
+
+<%= f.label :ManagerComments %>
+<%= f.text_field :manager_comments%><br>
+
+<%= f.submit "submit"%>
+<% end %>
+
+<% @values.each do |value| %>
+<%= value.description%>
+	<%= form_for @evaluation do |f| %>
+		<%= f.label :SelfPoints %>
+		<%= f.text_field :self_points%><br>
+
+		<%= f.label :SelfComments %>
+		<%= f.text_field :self_comments%><br>
+
+		<%= f.label :ManagerPoints %>
+		<%= f.text_field :manager_points%><br>
+
+		<%= f.label :ManagerComments %>
+		<%= f.text_field :manager_comments%><br>
+		<%= f.hidden_field :value_id, :value => value.id %>
+		<%= f.submit "submit" %>
+  <% end %>
+<% end %>
+
+
+<% @values.each do |value| %>
+<%= value.description%>
+	<%= form_for(current_user, :url => { :action => "update", :id => current_user}) do |f| %>
+		<% evals = f.object.evaluations.build %>
+		<%= f.fields_for evals do |ef| %>
+			<%=ef.label :SelfPoints %>
+			<%=ef.text_field :self_points%><br>
+
+			<%=ef.label :SelfComments %>
+			<%=ef.text_field :self_comments%><br>
+
+			<%=ef.label :ManagerPoints %>
+			<%=ef.text_field :manager_points%><br>
+
+			<%=ef.label :ManagerComments %>
+			<%=ef.text_field :manager_comments%><br>
+			<%= ef.hidden_field :value_id, :value => value.id %>	
+		<% end %>
+		<%=f.submit "submit" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,3 @@
+class EvaluationProcess
+  attr_accessor :evaluations
+end
