@@ -14,7 +14,7 @@ gem 'rails_admin'
 gem 'foreigner'
 gem 'heroku'
 gem 'git'
-
+gem 'pg'
 
 
 
