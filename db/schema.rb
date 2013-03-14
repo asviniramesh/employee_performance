@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130305091849) do
+ActiveRecord::Schema.define(:version => 20130307061607) do
+
+  create_table "employee_heirarchies", :force => true do |t|
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "employee_id"
+    t.integer  "manager_id"
+  end
+
+  add_index "employee_heirarchies", ["employee_id"], :name => "employee_heirarchies_employee_id_fk"
+  add_index "employee_heirarchies", ["manager_id"], :name => "employee_heirarchies_manager_id_fk"
 
   create_table "employees", :force => true do |t|
     t.integer  "user_id"
@@ -25,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20130305091849) do
 
   create_table "evaluation_intervals", :force => true do |t|
     t.integer  "team_id"
-    t.time     "frequency"
+    t.string   "frequency"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -34,8 +44,9 @@ ActiveRecord::Schema.define(:version => 20130305091849) do
     t.time     "eval_start_date"
     t.time     "eval_end_date"
     t.integer  "team_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "evaluation_interval_id"
   end
 
   create_table "evaluations", :force => true do |t|
@@ -50,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20130305091849) do
     t.integer  "user_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "manager_id"
   end
 
   create_table "interval_formats", :force => true do |t|
@@ -149,5 +161,8 @@ ActiveRecord::Schema.define(:version => 20130305091849) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  add_foreign_key "employee_heirarchies", "users", :name => "employee_heirarchies_employee_id_fk", :column => "employee_id"
+  add_foreign_key "employee_heirarchies", "users", :name => "employee_heirarchies_manager_id_fk", :column => "manager_id"
 
 end
