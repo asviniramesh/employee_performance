@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+layout :lays
   protect_from_forgery
   
 	def set_current_user
@@ -12,4 +13,11 @@ class ApplicationController < ActionController::Base
 	def after_sign_out_path_for(resource) 
 	root_path
 	end 
+ def lays
+    if devise_controller? && resource_name == :user && action_name == 'new'
+      "wizard"
+    else
+      "default"
+    end
+  end
 end

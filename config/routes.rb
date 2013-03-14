@@ -7,10 +7,13 @@ EmployPerf::Application.routes.draw do
 		member do
 			get 'evaluation_update'
 		end
+		collection do
+			get 'modify'
+		end
 	end
 
 
-  match '/evaluations/modify' =>'evaluations#modify'
+  #match '/evaluations/modify' =>'evaluations#modify'
 	
 	resources :employee_heirarchies
 	

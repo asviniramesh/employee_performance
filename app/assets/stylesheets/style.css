@@ -269,7 +269,6 @@ a.dashboard:link {
 	background-image:url(../assets/sprites.png);
 	background-position:-925px -14px;
 	padding-left:36px;
-	
 }
 a.dashboard:hover { 
 	color:#FFFFFF;
@@ -288,7 +287,6 @@ a.myprof:link {
 	background-position: -925px -41px;
 	padding-left:36px;
 	background-repeat:no-repeat;
-	
 }
 a.myprof:hover { 
 	color:#FFFFFF;
@@ -306,7 +304,6 @@ a.restpswd:link {
 	background-position: -925px -66px;
 	padding-left:36px;
 	background-repeat:no-repeat;
-	
 }
 a.restpswd:hover { 
 	color:#FFFFFF;
@@ -325,7 +322,6 @@ a.preview:link {
 	background-position: -925px -92px;
 	padding-left:36px;
 	background-repeat:no-repeat;
-	
 }
 a.preview:hover { 
 	color:#FFFFFF;
@@ -343,7 +339,6 @@ a.final:link {
 	background-position: -925px -116px;
 	padding-left:36px;
 	background-repeat:no-repeat;
-	
 }
 a.final:hover { 
 	color:#FFFFFF;
@@ -361,8 +356,7 @@ a.self:link {
 	background-image:url(../assets/sprites.png);
 	background-position: -925px -140px;
 	padding-left:36px;
-	background-repeat:no-repeat;
-	
+	background-repeat:no-repeat;	
 }
 a.self:hover { 
 	color:#FFFFFF;
@@ -380,7 +374,6 @@ a.more:link {
 	background-position: -925px -165px;
 	padding-left:36px;
 	background-repeat:no-repeat;
-	
 }
 a.more:hover { 
 	color:#FFFFFF;
@@ -398,7 +391,6 @@ a.mng:link {
 	background-position: -925px -191px;
 	padding-left:36px;
 	background-repeat:no-repeat;
-	
 }
 a.mng:hover { 
 	color:#FFFFFF;
@@ -422,12 +414,40 @@ h1.captn {
 	z-index:2;
 	width:100%; height:100%;
 	background-image:url(../assets/black.png);
-	position:fixed;}
+	position:fixed;
+}
+.overlay{
+	position:absolute;
+	z-index:2;
+	width:100%; height:100%;
+	background-color:#ecede7;
+	position:fixed;
+}
 .giff_img {
 	display: block;
     margin-left: auto;
     margin-right: auto;
 	margin-top:25%;	
+}
+.login_btn{
+	background: #f763a1; /* Old browsers */
+	background: -moz-linear-gradient(top, #f763a1 0%, #e32981 87%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f763a1), color-stop(87%,#e32981)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f763a1 0%,#e32981 87%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f763a1 0%,#e32981 87%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #f763a1 0%,#e32981 87%); /* IE10+ */
+	background: linear-gradient(to bottom, #f763a1 0%,#e32981 87%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f763a1', endColorstr='#e32981',GradientType=0 );	 /* IE6-9 */
+	border:none;
+	padding: 3px 40px 6px 40px;
+	border-radius:0 0 10px 10px;
+	color:#FFFFFF;
+	float:right;
+	margin-right:45px;
+}
+.login_btn:hover{ 
+	color: #F9F9F9;
+ 	cursor:pointer;
 }
 .save_btn{
 	background: #f763a1; /* Old browsers */
@@ -453,7 +473,93 @@ h1.captn {
 	font-weight:normal;
 }
 .cmt_txt_ar { 
-	max-width:200px;}
+	max-width:200px;
+}
+
+/* login page */
+.login_layout {
+	width:721px;
+	height:419px;
+	background-color: #FFFFFF;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:7%;
+	color:#979696;
+}
+.login_logo {
+	width:359px;
+	height:418px;
+	background-image:url(../assets/sprites.png);
+	background-position:-108px -237px;
+	float:left;
+}
+.login_option {
+	width: 350px;
+	height:418px;
+	float:right;
+}
+.login_option_inner {
+	margin-top:90px;
+	width:350px;
+	border-left:solid 1px #CCCCCC;
+	height:200px;
+	padding:10px 0 0 20px;
+	font-size:12px;
+}
+.sign_in_btn{
+	background: #f763a1; /* Old browsers */
+	background: -moz-linear-gradient(top, #f763a1 0%, #e32981 87%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f763a1), color-stop(87%,#e32981)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f763a1 0%,#e32981 87%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f763a1 0%,#e32981 87%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #f763a1 0%,#e32981 87%); /* IE10+ */
+	background: linear-gradient(to bottom, #f763a1 0%,#e32981 87%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f763a1', endColorstr='#e32981',GradientType=0 );	 /* IE6-9 */
+	border:none;
+	padding: 3px 40px 6px 40px;
+	border-radius:10px 10px 10px 10px;
+	color:#FFFFFF;
+}
+.sign_in_btn:hover{ 
+	color: #F9F9F9;
+ 	cursor:pointer;
+}
+.login_text_box {
+	width: 250px;
+	height:25px;
+	margin-top:7px;
+	border:solid 1px #CCCCCC;
+	color: #666666;
+	padding-left:5px;
+}
+.login_text_wrong {
+	background-color:#f66d6d;
+}
+input.login_text_box:focus {
+	border:solid 1px #e53d84;
+}
+.login_copy_right {
+	float:right;
+	font-size:11px;
+	padding-top: 85px;
+	padding-right: 30px;
+}
+a.login_link:link {
+	text-decoration:none;
+	color:#666666;
+}
+a.login_link:hover { 
+	color:#f360a0;
+}
+.error_box {
+	background-color:#ffebe8;
+	width:275px;
+	padding:10px;
+	border:solid 1px #cc0000;
+	margin-top:10px;
+	color: #666666;
+	border-radius:4px;
+}
 .footer {
 	background-color: #FF0000;
 	height:40px;
@@ -474,4 +580,35 @@ h1.captn {
 	float:right;
 	padding-top:15px;
 	padding-right:20px;
+}
+
+.save_overlay {
+	width:100%;
+	height:100%;
+	position:fixed;
+}
+.save_overlay_inner {
+	width:300px;
+	height:180px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:25%;
+	background-image:url(../images/black.png);
+	filter:alpha(opacity=40);
+	color:#FFFFFF;
+	font-weight:bold; /* For IE8 and earlier */
+}
+.save_image {
+	background-image:url(../images/sprites.png);
+	background-position:-8px -238px;
+	width:50px;
+	height:50px;
+	margin-left:122px;
+	margin-top:80px;
+	position: absolute;
+}
+.save_caption {
+	margin-left:75px;
+	margin-top:65px; 
+	position: absolute;
 }
