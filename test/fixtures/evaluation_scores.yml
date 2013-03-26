@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  evaluator_id: 1
+  submitter_id: 1
+  score_id: 
+  evaluation_id: 
+
+two:
+  evaluator_id: 1
+  submitter_id: 1
+  score_id: 
+  evaluation_id: 

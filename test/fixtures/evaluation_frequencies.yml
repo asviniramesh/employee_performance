@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  format: false
+  start_date: 2013-03-20
+
+two:
+  format: false
+  start_date: 2013-03-20

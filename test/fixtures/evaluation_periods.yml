@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  final_eval_end_date: 2013-03-19
+  final_eval_start_date: 2013-03-19
+  manager_eval_end_date: 2013-03-19
+  manager_eval_start_date: 2013-03-19
+  self_eval_end_date: 2013-03-19
+  self_eval_start_date: 2013-03-19
+
+two:
+  final_eval_end_date: 2013-03-19
+  final_eval_start_date: 2013-03-19
+  manager_eval_end_date: 2013-03-19
+  manager_eval_start_date: 2013-03-19
+  self_eval_end_date: 2013-03-19
+  self_eval_start_date: 2013-03-19

@@ -1,0 +1,17 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+						<div class="login_option_inner">
+						USERNAME<br />
+            <%= f.email_field :email, :autofocus => true, :class=>"login_text_box logn " %><br /><br />
+						PASSWORD<br />
+						<%= f.password_field :password, :class=>"login_text_box" %><br /><br />
+						<%= f.submit "Sign in", :class=>"sign_in_btn" %><br /><br />
+ 						<!--input type="checkbox"/><label style="margin-left:8px;">Remember Me</label><br /><br /-->
+
+						 <%= f.check_box :remember_me %> <%= f.label :remember_me %><br /><br />
+
+						<a class="login_link" href="/employees/password/new">Forgot your password ?</a>
+						<div class="error_box">
+						<label style="font-weight:bold">ERROR:</label> The password or username you entered <br />is incorrect. Lost your password?
+</div>
+</div>
+<% end %>

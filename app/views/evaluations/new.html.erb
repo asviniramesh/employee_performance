@@ -1,0 +1,188 @@
+<div id="wrapper_mngr">
+<div class="wrapper"  id="close">
+<div class="tab_head">
+<label class="head_caption_self_evaluation">Self Evaluaton</label>
+<div class="tab_head_arrow" onclick="javascript:hideDiv()"></div>
+</div>
+
+<div class="tabContainer" id="sortable">
+<%@values.each do |value|%>
+<div class="ui-state-default tabscontent " >
+<!--% unless @user.blank? %-->
+<%= form_for @evaluation do |f| %>
+      <% @evaluation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+<%= f.hidden_field :employee_id, :value=>current_employee.id%>
+<%= f.hidden_field :value_id, :value=>value.id%>
+<div  class="expnd" onclick="javascript:showvldts()"></div>
+<div class="expnd_item value_name"><%=value.title.slice(0,1)%>..</div>
+<div class="expnd_item descton_one"><%=value.description.slice(0,5)%>..</div>
+<%= f.fields_for :evaluation_scores do |s| %>
+<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+<%= s.hidden_field :submitter_id, :value=>current_employee.employee_hierarchies.first.superior_id %>
+<%#= s.select :submitter_id,options_for_select(@managers) %>
+<div class="expnd_item">
+<%= s.select :score_id, options_for_select(@scores.collect{ |u| [u.points, u.id] }),{:prompt=>"--"}%>
+</div>
+
+<div class="expnd_item">
+<%= s.fields_for :evaluation_comment do |v| %>
+<%= v.text_area :comment,:placeholder=>"Your Comment",:class=>"cmt_txt_ar", :rows=>"1" %>
+</div>
+<div class="expnd_item  ">
+<!--<label class="self_point_green" ">Good</label>-->
+<!--div class="giff_ldr"></div-->
+</div>
+
+<div class="expnd_item">
+<%= f.submit "Submit",  :class => "cmn_btn" %>
+<!--input type="submit" value="Submit" class="cmn_btn" /--></div>
+<div class="check"><input type="checkbox" /></div>
+<% end %>
+<% end %>
+<% end %>
+</div>
+<% end %>
+</div>
+  <!--%end%-->
+
+
+	<div id="vldts" class="tabscontent_det" style="display:none;">
+									<div  class="dspnd" onclick="javascript:hidevldts()">
+										</div>
+										<textarea class="cmt_txt_exp value_name" rows="1" readonly>Effort</textarea>
+									<div class="max" onclick="showFrontLayerone();"></div>
+									<div class="descrpn_name">DESCRIPTION</div>
+									<textarea class="descr_txt_exp" rows="3" readonly>We insist on giving our best effort in everything we undertake. Furthermore, we see a huge difference between 'good mistakes' (best effort, bad result) and 'bad mistakes' (sloppiness or lack of effort)</textarea>
+									
+									<div class="descrpn_name">Comments</div>
+									<textarea class="descr_txt_exp" name="inputname" value="Your Comment" onfocus="if(this.value == 'Your Comment')
+									 { this.value = ''; }" onblur="if (this.value == '') { this.value='Your Comment'; }"  >Your Comment</textarea>
+								    
+									<div class="submit_area">
+										<div class="submit_inside">
+										<div class="sumbit_option">POINTS</div>
+											<div class="submit_select">
+											<select>
+											<option>1 Points</option>
+											<option>2 Points</option>
+											</select> 
+											<label class="self_point_green" >Good</label></div>
+										</div>
+												<div class="submit_inside">
+											<div class="sumbit_option">
+											MANAGER
+											</div>
+											   <select class="submit_select">
+												  <option>Joyce John</option>
+												  <option>Suresh Vasudev</option>
+											   </select>
+										</div>
+									</div>
+										<div class="submit_value">
+											<input  type="submit" value="Submit" class="cmn_btn"/>
+											<input type="submit" value="Save" class="cmn_btn" />
+											<input  type="submit" value="Close" class="cmn_btn" />
+											<div class="giff_ldr" style="float:right; padding-right:5px;"></div>
+											</div>
+									</div>
+									
+								<!--	<next value>-->
+									
+							</div>
+							
+
+ 
+<div class="wrapper"  id="mng">
+<div class="tab_head">
+<label class="head_caption_manager_review">Manager Review</label>
+<div class="tab_head_arrow" onclick="javascript:hidemng()"></div>
+</div>
+
+						<!--<item start>-->
+							<div class="tabContainer" id="sortable">
+							<%@manager_review_values.each_with_index do |value,index|%>
+
+								<div class="ui-state-default tabscontent ">
+								<%= form_for @manager_review_evaluations[index] do |f| %>
+								
+									<div class="expnd" onclick="javascript:showmanager()"></div>
+									<div class="expnd_item value_name"><%=value.title.slice(0,1)%>..</div>
+									<div class="expnd_item value_name"><%=value.description.slice(0,5)%>..</div>
+									<div class="check"><div class="expnd_item">
+									<%= f.fields_for :evaluation_scores do |s| %>
+									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }%>
+									
+									</div>
+									<%= s.fields_for :evaluation_comment do |v| %>
+
+									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
+									
+									<%end%><%end%>
+	
+									
+									<div class="expnd_item  ">
+									<!--<label class="self_point_green" ">Good</label>-->
+									<!--div class="giff_ldr"></div-->
+									</div><div class="expnd_item">
+									  <input name="submit" type="submit" class="accept_btn" value="Accept" />
+									</div>
+									<div class="expnd_item">
+									<input type="submit" value="Refer" class="cmn_btn"></div></div>
+								</div>
+								<!--<expand>-->
+								<div id="manager" class="tabscontent_det" style="display:none;">
+									<div  class="dspnd" onclick="javascript:hidemanager()">
+										</div>
+										<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
+									<div class="max" onclick="showFrontLayerone();"></div>
+									<div class="descrpn_name">DESCRIPTION</div>
+									<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>
+									
+									
+									<%= f.fields_for :evaluation_scores do |s| %>
+									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }%>
+									<%= s.fields_for :evaluation_comment do |v| %>
+									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"My Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
+									<%end%><%end%>
+
+									<!--div class="descrpn_name">My Comments <select>
+									<option>1 Points </option>
+									<option>2 Points </option>
+									<option>3 Points</option>
+									</select></div>
+									<textarea class="descr_txt_exp" name="inputname" value="My Comment" onfocus="if(this.value == 'My Comment')
+									 { this.value = ''; }" onblur="if (this.value == '') { this.value='My Comment'; }"  >My Comment</textarea-->
+									 
+								    <div class="descrpn_name">Manager Comments <select>
+									<option>1 Points </option>
+									<option>2 Points </option>
+									<option>3 Points</option>
+									</select></div>
+									<textarea class="descr_txt_exp" name="inputname" value="Manager Comments" onfocus="if(this.value == 'Manager Comments')
+									 { this.value = ''; }" onblur="if (this.value == '') { this.value='Manager Comments'; }"  >Manager Comments</textarea>
+								
+									<div style=" margin-top:24px;">				
+										<div class="submit_value">
+											<input  type="submit" value="Close" class="cmn_btn"/>
+											<input type="submit" value="Refer" class="cmn_btn" />
+											<input  type="submit" value="Accept" class="accept_btn" style="float: right;" />
+											<div class="giff_ldr" style="float:right; padding-right:5px;"></div>
+											</div>
+									</div>
+									
+								<!--<expand>-->
+								</div>
+								<%end%>
+								<%end%>
+							<!--	<item end>-->
+							
+</div>
+</div>
+  </div>
+</div>
+</div>
+</div> 
+<!--<content>-->
+
