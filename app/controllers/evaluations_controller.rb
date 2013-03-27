@@ -25,11 +25,10 @@ class EvaluationsController < ApplicationController
 
 	#manager review part
   evs = []
-
   Evaluation.where('evaluation_status_id = ?',EvaluationStatus.find_by_status('Self_Evaluated').id).each do |ev|
    ev.evaluation_scores.each do |es|
      evs << es if es.submitter_id == current_employee.id 
-   end
+   end if check_condition(ev)
   end
    
 	@manager_review_values = [] 
@@ -81,5 +80,13 @@ class EvaluationsController < ApplicationController
 		@evaluation = Evaluation.find(params[:id])
 		@evaluation.destroy
 	end
+
+	def check_condition ev
+		if current_employee.roles.map(&:name).include?('Manager')
+			ev.evaluation_scores.count == 1
+		else
+			true
+	end 
+end
 	
 end
