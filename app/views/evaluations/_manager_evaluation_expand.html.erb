@@ -1,0 +1,44 @@
+								<div id=<%= "manager_"+ "#{index}"%> class="tabscontent_det my_test" style="display:none;">
+									<div  class="dspnd" id=<%=index%>  onclick="javascript:hidemanager(this.id)">
+										</div>
+										<%= form_for @manager_review_evaluations[index] do |f| %>
+										<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
+									<div class="max" onclick="showFrontLayerone();"></div>
+									<div class="descrpn_name">DESCRIPTION</div>
+									<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>									
+									<%= f.fields_for :evaluation_scores do |s| %>
+									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>
+									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
+									<%= s.fields_for :evaluation_comment do |v| %>
+									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"My Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
+									<%end%><%end%>
+
+									<!--div class="descrpn_name">My Comments <select>
+									<option>1 Points </option>
+									<option>2 Points </option>
+									<option>3 Points</option>
+									</select></div>
+									<textarea class="descr_txt_exp" name="inputname" value="My Comment" onfocus="if(this.value == 'My Comment')
+									 { this.value = ''; }" onblur="if (this.value == '') { this.value='My Comment'; }"  >My Comment</textarea-->
+									 
+								    <!--div class="descrpn_name">Manager Comments <select>
+									<option>1 Points </option>
+									<option>2 Points </option>
+									<option>3 Points</option>
+									</select></div>
+									<textarea class="descr_txt_exp" name="inputname" value="Manager Comments" onfocus="if(this.value == 'Manager Comments')
+									 { this.value = ''; }" onblur="if (this.value == '') { this.value='Manager Comments'; }"  >Manager Comments</textarea-->
+								
+									<div style=" margin-top:24px;">				
+										<div class="submit_value">
+											<input  type="submit" value="Close" class="cmn_btn"/>
+											<input type="submit" value="Refer" class="cmn_btn" />
+											<input  type="submit" value="Accept" class="accept_btn" style="float: right;" />
+											<!--div class="giff_ldr" style="float:right; padding-right:5px;"></div-->
+											</div>
+									</div>
+									
+								<!--<expand>-->
+								</div>
+								<%end%>

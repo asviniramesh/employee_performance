@@ -49,14 +49,14 @@ function showvldts() {
 			} 
 			}
 		
-function hidemanager() { 
+function hidemanager(id) { 
 				if (document.getElementById) { 
-				document.getElementById('manager').style.display = 'none'; 
+				document.getElementById('manager_'+id).style.display = 'none'; 
 			} 
 			} 
-function showmanager() { 
+function showmanager(id) { 
 				if (document.getElementById) { 
-				document.getElementById('manager').style.display = 'block';
+				document.getElementById("manager_"+id).style.display = 'block';
 			} 
 			}
 			

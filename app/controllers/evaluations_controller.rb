@@ -24,13 +24,24 @@ class EvaluationsController < ApplicationController
     i.build_evaluation_comment
 
 	#manager review part
-  evs = EvaluationScore.where('submitter_id = ?', current_employee.id)
+  evs = []
+
+  Evaluation.where('evaluation_status_id = ?',EvaluationStatus.find_by_status('Self_Evaluated').id).each do |ev|
+   ev.evaluation_scores.each do |es|
+     evs << es if es.submitter_id == current_employee.id 
+   end
+  end
+   
 	@manager_review_values = [] 
   @manager_review_evaluations = []
   evs.each do |s|
-    v = s.evaluation.value
-@manager_review_evaluations << s.evaluation
-    @manager_review_values << v
+     v = s.evaluation.value
+   unless s.evaluation.evaluation_scores.count == 2
+	 j = s.evaluation.evaluation_scores.build
+	 j.build_evaluation_comment
+  end
+	@manager_review_evaluations << s.evaluation
+	@manager_review_values << v
   end unless evs.blank?
 	end
 	
@@ -38,7 +49,7 @@ class EvaluationsController < ApplicationController
 	@values=Value.all
     @scores = Score.all
 		@evaluation = Evaluation.new(params[:evaluation])
-p current_employee
+    @evaluation.evaluation_status_id = EvaluationStatus.find_by_status('Self_Evaluated').id
 		@managers=current_employee.employee_hierarchies.map(&:superior_id)
 	  @employee = current_employee.id
 		if @evaluation.save
@@ -47,14 +58,6 @@ p current_employee
 		else
 			render :action => :new
 		end
-#			respond_to do |format|
-#      if @evaluation.save
-#        format.js { render 'mine' }
-#      else
-#        logger.debug @evaluation.errors.inspect
-#        format.js { render :js => @evaluation.errors }
-#      end
-#    end
 	end
 	
 	def show
@@ -68,7 +71,7 @@ p current_employee
 	def update
 		@evaluation = Evaluation.find(params[:id])
 		if @evaluation.update_attributes(params[:evaluation])
-			redirect_to :action=> :show
+			redirect_to :action=> :new
 		else
 			render :action => :edit
 		end

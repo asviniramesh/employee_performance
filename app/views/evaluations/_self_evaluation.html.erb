@@ -1,0 +1,41 @@
+<%@values.each do |value|%>
+<div class="ui-state-default tabscontent " >
+<!--% unless @user.blank? %-->
+<%= form_for @evaluation do |f| %>
+      <% @evaluation.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+<%= f.hidden_field :employee_id, :value=>current_employee.id%>
+<%= f.hidden_field :value_id, :value=>value.id%>
+<div  class="expnd" onclick="javascript:showvldts()"></div>
+<div class="expnd_item value_name"><%=value.title.slice(0,1)%>..</div>
+<div class="expnd_item descton_one"><%=value.description.slice(0,5)%>..</div>
+<%= f.fields_for :evaluation_scores do |s| %>
+<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+<%= s.hidden_field :submitter_id, :value=>current_employee.employee_hierarchies.first.superior_id %>
+<%#= s.select :submitter_id,options_for_select(@managers) %>
+
+<div class="expnd_item">
+<%= s.select :score_id, options_for_select(@scores.collect{ |u| [u.points, u.id] }),{:prompt=>"--"}%>
+</div>
+
+<div class="expnd_item">
+<%= s.fields_for :evaluation_comment do |v| %>
+<%= v.text_area :comment,:placeholder=>"Your Comment",:class=>"cmt_txt_ar", :rows=>"1" %>
+</div>
+<div class="expnd_item  ">
+<!--<label class="self_point_green" ">Good</label>-->
+<!--div class="giff_ldr"></div-->
+</div>
+
+<div class="expnd_item">
+<%= f.submit "Submit",  :class => "cmn_btn" %>
+<!--input type="submit" value="Submit" class="cmn_btn" /--></div>
+<div class="check"><input type="checkbox" /></div>
+<% end %>
+<% end %>
+<% end %>
+</div>
+<% end %>
+</div>
+<!--%end%-->

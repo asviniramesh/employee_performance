@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(:version => 20130320104700) do
   end
 
   create_table "evaluation_frequencies", :force => true do |t|
-    t.float    "format"
+    t.string   "format"
     t.date     "start_date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
