@@ -7,6 +7,7 @@ class EvaluationsController < ApplicationController
 	end
 	
 	def new
+		@employee_profile = current_employee.employee_detail
 		@values=Value.all
     @evaluated_values = []
 		@values.each do |v|

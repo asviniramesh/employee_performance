@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320104700) do
+ActiveRecord::Schema.define(:version => 20130401104942) do
 
   create_table "employee_details", :force => true do |t|
     t.string   "designation"
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(:version => 20130320104700) do
 
   create_table "scores", :force => true do |t|
     t.string   "description"
-    t.integer  "points"
+    t.string   "points"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

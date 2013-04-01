@@ -6,7 +6,7 @@
 					<button class="value_btn" onClick="javascript:showmng()">Show</button>-->
 				</div>
 			<div  class="user_details">
-				<label class="user_name">FazilAbdulkadher</label>
+				<label class="user_name"><%=@employee_profile.first_name%><%=@employee_profile.last_name%></label>
 				<div class="user_photo"></div>
 					<div class="expand_arrow" id="box1">
 						<input class="arw_butt" type="button" onclick="showFrontLayer();"/>
@@ -18,7 +18,7 @@
 	<div id="frontlayer">
 	<div class="photo_user"></div>
 	<div class="user_options">
-		<span class="user_option_list">Fazil Abdulakdher</span><br /><br />
+		<span class="user_option_list"><%=@employee_profile.first_name%><%=@employee_profile.last_name%></span><br /><br />
 		<span class="user_option_list">Edit My Profile</span><br /><br /><br />
 	
 		<% if employee_signed_in? %>

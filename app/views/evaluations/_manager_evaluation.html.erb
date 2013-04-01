@@ -1,22 +1,20 @@
 <%@manager_review_values.each_with_index do |value,index|%>
+<%= full_name(@manager_review_evaluations[index]) %>
 								<div class="ui-state-default tabscontent ">
 								<% a=true%><% b=true%>
 								<%= form_for @manager_review_evaluations[index] do |f| %>
 								
 									<div class="expnd" id=<%=index%>  onclick="javascript:showmanager(this.id)"></div>
-									<div class="expnd_item value_name"><%=value.title.slice(0,1)%>..</div>
-									<div class="expnd_item value_name"><%=value.description.slice(0,5)%>..</div>
+									<div class="expnd_item value_name"><%=value.title%>..</div>
+									<!--div class="expnd_item value_name"><%=value.description.slice(0,5)%>..</div-->
 									<div class="check"><div class="expnd_item">
 									<%= f.fields_for :evaluation_scores do |s| %>
 									<% if  a%>
 									<% if  b%>
 									<%b=false%>
-									
 									<%next%>
 									<%end%>
-									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>
-									
-									
+									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>							
 									</div>
 									<%= s.fields_for :evaluation_comment do |v| %>
 									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
