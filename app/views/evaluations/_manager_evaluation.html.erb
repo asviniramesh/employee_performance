@@ -14,7 +14,9 @@
 									<%b=false%>
 									<%next%>
 									<%end%>
-									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>							
+									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>	
+									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>									
 									</div>
 									<%= s.fields_for :evaluation_comment do |v| %>
 									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
