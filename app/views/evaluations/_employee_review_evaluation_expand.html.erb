@@ -1,7 +1,7 @@
 								<div id=<%= "manager_"+ "#{index}"%> class="tabscontent_det my_test" style="display:none;">
 									<div  class="dspnd" id=<%=index%>  onclick="javascript:hidemanager(this.id)">
 										</div>
-										<%= form_for @manager_review_evaluations[index] do |f| %>
+										<%= form_for @employee_review_evaluations[index] do |f| %>
 										<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
 									<div class="max" onclick="showFrontLayerone();"></div>
 									<div class="descrpn_name">DESCRIPTION</div>
@@ -10,7 +10,7 @@
 									<div class="descrpn_name"><%= commented_by s%><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>      
 									<% if a %>
 									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
-									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
+									<%= s.hidden_field :submitter_id, :value=>@employee_review_evaluations[index].evaluation_scores.first.evaluator_id%>
 									<% end %></div>
 									<%= s.fields_for :evaluation_comment do |v| %>
 									<div class="descrpn_name"><%= v.text_area :comment,:placeholder=>"My Comment",:class=>"descr_txt_exp", :rows=>"1" %></div>

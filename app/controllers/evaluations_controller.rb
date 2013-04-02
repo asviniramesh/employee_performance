@@ -43,6 +43,22 @@ class EvaluationsController < ApplicationController
 	@manager_review_evaluations << s.evaluation
 	@manager_review_values << v
   end unless evs.blank?
+	#current_employee.get_manager_reviewed_evaluations 
+
+evs1 = []
+Evaluation.where('evaluation_status_id = ? && employee_id = ?',EvaluationStatus.find_by_status('Manager_Evaluated').id,current_employee.id).each do |ev|
+   ev.evaluation_scores.each do |es|
+     evs1 << es if es.submitter_id == current_employee.id 
+   end 
+  end
+   
+	@employee_review_values = [] 
+  @employee_review_evaluations = []
+  evs1.each do |s|
+  v = s.evaluation.value
+	@employee_review_evaluations << s.evaluation
+	@employee_review_values << v
+  end unless evs1.blank?
 	end
 	
 	def create
@@ -71,6 +87,7 @@ class EvaluationsController < ApplicationController
 	def update
 		@evaluation = Evaluation.find(params[:id])
 		if @evaluation.update_attributes(params[:evaluation])
+      @evaluation.set_status
 			redirect_to :action=> :new
 		else
 			render :action => :edit

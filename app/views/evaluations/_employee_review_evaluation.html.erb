@@ -1,8 +1,8 @@
+<%@employee_review_values.each_with_index do |value,index|%>
 								<div class="ui-state-default tabscontent ">
 								<% a=true%><% b=true%>
-								<%= form_for @manager_review_evaluations[index] do |f| %>
-								
-									<div class="expnd" id=<%=index%>  onclick="javascript:showmanager(this.id)"></div>
+								<%= form_for @employee_review_evaluations[index] do |f| %>
+								<div class="expnd" id=<%=index%>  onclick="javascript:showmanager(this.id)"></div>
 									<div class="expnd_item value_name"><%=value.title%>..</div>
 									<!--div class="expnd_item value_name"><%=value.description.slice(0,5)%>..</div-->
 									<div class="check"><div class="expnd_item">
@@ -14,7 +14,7 @@
 									<%end%>
 									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>	
 									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
-									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>									
+									<%= s.hidden_field :submitter_id, :value=>@employee_review_evaluations[index].evaluation_scores.first.evaluator_id%>									
 									</div>
 									<%= s.fields_for :evaluation_comment do |v| %>
 									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
@@ -31,9 +31,17 @@
 									<%end%>
 								</div>
 								<!--<expand>-->
-<%= render :partial => 'manager_evaluation_expand', :locals => {:index => index, :value=> value} %>
+<%= render :partial => 'employee_review_evaluation_expand', :locals => {:index => index, :value=> value} %>
+
+								<%end%>
 
 							<!--	<item end>-->
 							
+</div>
+</div>
+  </div>
+</div>
+</div>
+</div> 
+<!--<content>-->
 
- 

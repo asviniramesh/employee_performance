@@ -21,6 +21,14 @@ class Employee < ActiveRecord::Base
   								:employee_history_ids, :employee_detail_attributes, :evaluation_ids, :evaluation_summary_attributes
  
   accepts_nested_attributes_for :employee_detail, :evaluation_summary, :allow_destroy => true
+
+  def get_manager_reviewed_evaluations
+    @manager_reviewed_evaluations = self.evaluations.where('evaluation_status_id = ?', EvaluationStatus.find_by_status('Manager_Evaluated').id)
+	end
+  
+  def name
+  	self.employee_detail.first_name + " " + self.employee_detail.last_name
+  end
 end
 
 
