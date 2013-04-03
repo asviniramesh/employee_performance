@@ -28,7 +28,7 @@ class Employee < ActiveRecord::Base
   
   def name
     if self.employee_detail.present?
-  	  self.employee_detail.first_name + " " + self.employee_detail.last_name 
+  	  self.employee_detail.first_name + " " + self.employee_detail.last_name unless self.employee_detail.first_name.blank?
     end
   end
 end

@@ -46,7 +46,7 @@ class EvaluationsController < ApplicationController
 	#current_employee.get_manager_reviewed_evaluations 
 
 evs1 = []
-Evaluation.where('evaluation_status_id = ? && employee_id = ?',EvaluationStatus.find_by_status('Manager_Evaluated').id,current_employee.id).each do |ev|
+Evaluation.where('evaluation_status_id = ? and employee_id = ?',EvaluationStatus.find_by_status('Manager_Evaluated').id,current_employee.id).each do |ev|
    ev.evaluation_scores.each do |es|
      evs1 << es if es.submitter_id == current_employee.id 
    end 
