@@ -1,7 +1,7 @@
 module EvaluationsHelper
-	def full_name(object)
-		"#{object.employee.employee_detail.first_name} #{object.employee.employee_detail.last_name}".camelcase
-	end
+#	def full_name(object)
+#		"#{object.employee.employee_detail.first_name} #{object.employee.employee_detail.last_name}".camelcase
+#	end
 
   def commented_by s
     if Employee.find(s.object.evaluator_id).roles.map(&:name).include?('Manager')

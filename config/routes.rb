@@ -13,9 +13,9 @@ LiveTheValue::Application.routes.draw do
 		  get 'dashboard'
 	  end
 	  
-	  member do
-		  get 'employee_profile'
-		end
+	  #~ member do
+		  #~ get 'employee_profile'
+		#~ end
 	  end
   	#~ devise_scope :employee do
 	      #~ match "/employees/sign_in" => "new_employee_session"
