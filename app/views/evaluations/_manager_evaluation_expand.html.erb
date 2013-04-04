@@ -5,9 +5,8 @@
 										<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
 									<div class="max" onclick="showFrontLayerone();"></div>
 									<div class="descrpn_name">DESCRIPTION</div>
-									<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>	
-									<% a = false %>
-						<% i=0 %>			
+									<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>					<% a = false %>
+<% i=0 %>			
 									<%= f.fields_for :evaluation_scores do |s| %>
 <div class="descrpn_name_child">
 										<div class="tab_head_child"><%= i==0 ? "Self Evaluation" : "Manager Evaluation"%><div class="dspnd_right" >
@@ -21,7 +20,7 @@
 									<%= s.fields_for :evaluation_comment do |v| %>
 									<div class="descrpn_name" style= "margin-left:-16px; width=470px;"><%= v.text_area :comment,:placeholder=> i==0 ? "my comment" : "manager comment" ,:class=>"descr_txt_exp", :rows=>"1" %></div>
 									<% a = true %></div>
-									<%end%> <%i+=1%><%end%></div>
+									<%end%> <%i+=1%><%end%>
 
 									<div style=" margin-top:24px;">				
 										<div class="submit_value">
@@ -33,7 +32,7 @@
 									</div>
 								<!--<expand>-->
 								</div>
-								<%end%>
+								<%end%></div>
 
 
 
