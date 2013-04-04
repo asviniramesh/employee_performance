@@ -12,13 +12,13 @@
 										<div class="tab_head_child"><%= i==0 ? "Self Evaluation" : "Manager Evaluation"%><div class="dspnd_right" >
 											</div>
 										</div>
-									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>      
+									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' },:disabled => s.object.new_record? ? false : true %>      
 									<% if a %>
 									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
 									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
 									<% end %></div>
 									<%= s.fields_for :evaluation_comment do |v| %>
-									<div class="descrpn_name" style= "margin-left:-16px; width=470px;"><%= v.text_area :comment,:placeholder=> i==0 ? "my comment" : "manager comment" ,:class=>"descr_txt_exp", :rows=>"1" %></div>
+									<div class="descrpn_name" style= "margin-left:-16px; width=470px;"><%= v.text_area :comment,:placeholder=> i==0 ? "my comment" : "manager comment" ,:class=>"descr_txt_exp", :rows=>"1", :readonly => v.object.new_record? ? false : true %></div>
 									<% a = true %></div>
 									<%end%> <%i+=1%><%end%>
 
