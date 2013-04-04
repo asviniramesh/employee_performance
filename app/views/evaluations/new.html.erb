@@ -8,7 +8,8 @@
 <% get_team_members.each do |id|  %>
 <% @manager_review_values.each_with_index do |value,index|%>
 <% if id == @manager_review_evaluations[index].employee_id%>
-<%= Employee.find(id).name%>
+<label class="hdng">
+<%= Employee.find(id).name%></label>
 <%= render :partial => 'manager_evaluation', :locals => {:index => index, :value=> value} %> 
 <%end%>
 <%end%>

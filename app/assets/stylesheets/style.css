@@ -1115,3 +1115,10 @@ a.login_link:hover {
 	color: #666666;
 	font-weight: bold;
 }
+.hdng{
+    color: #666666;
+    font-weight: bold;
+    text-shadow: 2px 2px 2px #FFFFFF;
+	font-size:13px;
+	padding-left:5px;
+}
