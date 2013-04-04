@@ -4,7 +4,7 @@
 								
 									<div class="expnd" id=<%=index%>  onclick="javascript:showmanager(this.id)"></div>
 									<div class="expnd_item value_name"><%=value.title%>..</div>
-									<!--div class="expnd_item value_name"><%=value.description.slice(0,5)%>..</div-->
+									<!--div class="expnd_item value_name"><%#=value.description.slice(0,5)%>..</div-->
 									<div class="check"><div class="expnd_item">
 									<%= f.fields_for :evaluation_scores do |s| %>
 									<% if  a%>
@@ -24,10 +24,10 @@
 									<!--<label class="self_point_green" ">Good</label>-->
 									<!--div class="giff_ldr"></div-->
 									</div><div class="expnd_item">
-									  <input name="submit" type="submit" class="accept_btn" value="Accept" />
+									  <input name="submit" type="submit" class="cmn_btn" value="Submit" />
 									</div>
 									<div class="expnd_item">
-									<input type="submit" value="Refer" class="cmn_btn"></div></div>
+									<!--input type="submit" value="" class="accept_btn"--></div></div>
 									<%end%>
 								</div>
 								<!--<expand>-->
