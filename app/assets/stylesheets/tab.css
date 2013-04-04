@@ -302,7 +302,7 @@ padding:10px;
 .dspnd_right{ 
 	background-image:url(../images/sprites.png);
 	background-position: -536px -60px;
-	width: 8px;
+	
 	height: 14px;
 	float: right;
 }
