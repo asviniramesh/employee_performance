@@ -13,8 +13,8 @@
 											</div>
 										</div>
 
-									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%><br/>
-									<%if s.object.new_record? %><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' },:disabled => s.object.new_record? ? false : true %>  
+									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%>&nbsp
+									<%if s.object.new_record? %><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' } %>  
 									<%else%><%=s.object.score.points%>
 									<%end%>
 									<% if a %>
@@ -22,10 +22,12 @@
 									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
 									<% end %></div>
 									<%= s.fields_for :evaluation_comment do |v| %>
-									<div class="descrpn_name" style= "margin-left:-16px; width=470px;">
+									
 									<%if v.object.new_record? %>
+									<div class="descrpn_name" style= "margin-left:-14px; width=470px;">
 									<%= v.text_area :comment,:placeholder=> "manager comment" ,:class=>"descr_txt_exp", :rows=>"1" %>
 									<%else%>
+									<div class="descrpn_name" style= "margin-left:-1px; width=470px;">
 									<%=v.object.comment%>
 									<%end%>
 									</div>
