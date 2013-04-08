@@ -1,45 +1,40 @@
-<div id="vldts" class="tabscontent_det" style="display:none;">
-<div  class="dspnd" onclick="javascript:hidevldts()">
+	<div id= <%= "self_"+ "#{index}"%>  class="tabscontent_det " style="display:none;">
+<div  class="dspnd" id=<%=index%>  onclick="javascript:hideself(this.id)">
 	</div>
-	<textarea class="cmt_txt_exp value_name" rows="1" readonly>Effort</textarea>
+	<%= form_for @evaluation do |f| %>
+	<%= f.hidden_field :employee_id, :value=>current_employee.id%>
+<%= f.hidden_field :value_id, :value=>value.id%>
+	<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
 <div class="max" onclick="showFrontLayerone();"></div>
 <div class="descrpn_name">DESCRIPTION</div>
-<textarea class="descr_txt_exp" rows="3" readonly>We insist on giving our best effort in everything we undertake. Furthermore, we see a huge difference between 'good mistakes' (best effort, bad result) and 'bad mistakes' (sloppiness or lack of effort)</textarea>
+<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>
 
-<div class="descrpn_name">Comments</div>
-<textarea class="descr_txt_exp" name="inputname" value="Your Comment" onfocus="if(this.value == 'Your Comment')
-		 { this.value = ''; }" onblur="if (this.value == '') { this.value='Your Comment'; }"  >Your Comment</textarea>
-		 
-	<div class="submit_area">
-		<div class="submit_inside">
-		<div class="sumbit_option">POINTS</div>
-			<div class="submit_select">
-			<select>
-			<option>1 Points</option>
-			<option>2 Points</option>
-			</select> 
-			<label class="self_point_green" >Good</label></div>
+<div class="descrpn_name">Self Points and Comments</div>
+		<%= f.fields_for :evaluation_scores do |s| %>
+		<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+		<%= s.hidden_field :submitter_id, :value=>current_employee.employee_hierarchies.first.superior_id %>
+		<div class="expnd_item">
+		<%= s.select :score_id, options_for_select(@scores.collect{ |u| [u.points, u.id] }),{:prompt=>"--"}%>
 		</div>
-				<div class="submit_inside">
-			<div class="sumbit_option">
-			MANAGER
-			</div>
-			   <select class="submit_select">
-				  <option>Joyce John</option>
-				  <option>Suresh Vasudev</option>
-			   </select>
+
+		<div class="expnd_item">
+		<%= s.fields_for :evaluation_comment do |v| %>
+		<%= v.text_area :comment,:placeholder=>"Your Comment",:class=>"cmt_txt_ar", :rows=>"1" %>
 		</div>
-	</div>
+		
 		<div class="submit_value">
-			<input  type="submit" value="Submit" class="cmn_btn"/>
-			<input type="submit" value="Save" class="cmn_btn" />
-			<input  type="submit" value="Close" class="cmn_btn" />
+		<input  type="button" value="Close" class="cmn_btn" id=<%=index%>  onclick="javascript:hideself(this.id)"/>
+		<%= f.submit "Submit",  :class => "cmn_btn" %>
+			<!--input  type="submit" value="Submit" class="cmn_btn"/-->
+			<!--input type="submit" value="Save" class="cmn_btn" /-->
 			<!--div class="giff_ldr" style="float:right; padding-right:5px;"></div-->
 			</div>
+					<% end %>
+<% end %>
+<% end %>
 	</div>
-		
+
 	<!--	<next value>-->
-</div>
-							
+				
 
  

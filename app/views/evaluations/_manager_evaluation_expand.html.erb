@@ -12,19 +12,29 @@
 										<div class="tab_head_child"><%= i==0 ? "Self Evaluation" : "Manager Evaluation"%><div class="dspnd_right" >
 											</div>
 										</div>
-									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' },:disabled => s.object.new_record? ? false : true %>      
+
+									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%><br/>
+									<%if s.object.new_record? %><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' },:disabled => s.object.new_record? ? false : true %>  
+									<%else%><%=s.object.score.points%>
+									<%end%>
 									<% if a %>
 									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
 									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
 									<% end %></div>
 									<%= s.fields_for :evaluation_comment do |v| %>
-									<div class="descrpn_name" style= "margin-left:-16px; width=470px;"><%= v.text_area :comment,:placeholder=> i==0 ? "my comment" : "manager comment" ,:class=>"descr_txt_exp", :rows=>"1", :readonly => v.object.new_record? ? false : true %></div>
+									<div class="descrpn_name" style= "margin-left:-16px; width=470px;">
+									<%if v.object.new_record? %>
+									<%= v.text_area :comment,:placeholder=> "manager comment" ,:class=>"descr_txt_exp", :rows=>"1" %>
+									<%else%>
+									<%=v.object.comment%>
+									<%end%>
+									</div>
 									<% a = true %></div>
 									<%end%> <%i+=1%><%end%>
 
 									<div style=" margin-top:24px;">				
 										<div class="submit_value">
-											<input  type="submit" value="Close" class="cmn_btn"/>
+											<input  type="button" value="Close" class="cmn_btn" id=<%=index%>  onclick="javascript:hidemanager(this.id)"/>
 											<!--input type="submit" value="Refer" class="cmn_btn" /-->
 											<input  type="submit" value="Submit" class="accept_btn" style="float: right;" />
 											<!--div class="giff_ldr" style="float:right; padding-right:5px;"></div-->

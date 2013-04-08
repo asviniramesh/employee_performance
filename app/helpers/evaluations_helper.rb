@@ -11,8 +11,12 @@ module EvaluationsHelper
     end unless s.object.new_record?
   end
 
-	def get_team_members
-		EmployeeHierarchy.where("superior_id = ? ", current_employee.id).map(&:employee_id)
+	def get_team_members_for evaluations
+    team_members = []
+    evaluations.each do |ev|
+     team_members << ev.employee_id
+    end
+		team_members.uniq
 	end
 end
 

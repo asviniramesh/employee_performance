@@ -15,7 +15,7 @@ class EvaluationsController < ApplicationController
     unless e.evaluation_scores.map(&:submitter_id).blank?
       @evaluated_values << v 
    end if e
-   end
+   end unless @values.blank?
    @values = Value.where('id NOT IN (?)',@evaluated_values) if @evaluated_values.present?
     @scores = Score.all
 		@managers=current_employee.employee_hierarchies.map(&:superior_id)
@@ -87,10 +87,10 @@ Evaluation.where('evaluation_status_id = ? and employee_id = ?',EvaluationStatus
 	def update
 		@evaluation = Evaluation.find(params[:id])
 		if @evaluation.update_attributes(params[:evaluation])
-      @evaluation.set_status
+      @evaluation.set_status refer = params.has_key?('refer') ? true : false
 			redirect_to :action=> :new
 		else
-			render :action => :edit
+			redirect_to :action=> :new
 		end
 	end
 	

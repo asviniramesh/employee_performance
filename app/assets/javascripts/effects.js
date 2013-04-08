@@ -38,14 +38,14 @@ function showmng() {
 			} 
 			}
 
-function hidevldts() { 
+function hideself(id) { 
 				if (document.getElementById) { 
-				document.getElementById('vldts').style.display = 'none'; 
+				document.getElementById('self_'+id).style.display = 'none'; 
 			} 
 			} 
-function showvldts() { 
+function showself(id) { 
 				if (document.getElementById) { 
-				document.getElementById('vldts').style.display = 'block';
+				document.getElementById('self_'+id).style.display = 'block';
 			} 
 			}
 		
@@ -57,6 +57,17 @@ function hidemanager(id) {
 function showmanager(id) { 
 				if (document.getElementById) { 
 				document.getElementById("manager_"+id).style.display = 'block';
+			} 
+			}
+			
+function hideemployee(id) { 
+				if (document.getElementById) { 
+				document.getElementById('employee_'+id).style.display = 'none'; 
+			} 
+			} 
+function showemployee(id) { 
+				if (document.getElementById) { 
+				document.getElementById("employee_"+id).style.display = 'block';
 			} 
 			}
 			

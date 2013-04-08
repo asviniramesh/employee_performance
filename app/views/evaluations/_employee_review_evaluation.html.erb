@@ -2,7 +2,7 @@
 								<div class="ui-state-default tabscontent ">
 								<% a=true%><% b=true%>
 								<%= form_for @employee_review_evaluations[index] do |f| %>
-								<div class="expnd" id=<%=index%>  onclick="javascript:showmanager(this.id)"></div>
+								<div class="expnd" id=<%=index%>  onclick="javascript:showemployee(this.id)"></div>
 									<div class="expnd_item value_name"><%=value.title%>..</div>
 									<!--div class="expnd_item value_name"><%=value.description.slice(0,5)%>..</div-->
 									<div class="check"><div class="expnd_item">
@@ -12,22 +12,31 @@
 									<%b=false%>
 									<%next%>
 									<%end%>
-									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' }%>	
+									<div class="test">
+									<%if s.object.new_record? %>
+									<%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' },:disabled => true%>
+									<%else%>
+									<%=s.object.score.points%>
+									<%end%></div>
 									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
 									<%= s.hidden_field :submitter_id, :value=>@employee_review_evaluations[index].evaluation_scores.first.evaluator_id%>									
 									</div>
 									<%= s.fields_for :evaluation_comment do |v| %>
-									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1" %></div>
+									<%if v.object.new_record? %>
+									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1",:readonly => true %></div>
+									<%else%>
+									<%=v.object.comment.slice(0,10)%>
+									<%end%>
 									<%end%><%end%><%end%>
-	
 									<div class="expnd_item  ">
 									<!--<label class="self_point_green" ">Good</label>-->
 									<!--div class="giff_ldr"></div-->
-									</div><div class="expnd_item">
+									</div>
+									<div class="expnd_item">
 									  <input name="submit" type="submit" class="accept_btn" value="Accept" />
 									</div>
 									<div class="expnd_item">
-									<input type="submit" value="Refer" class="cmn_btn"></div></div>
+									<input type="submit" value="Refer" class="cmn_btn" name="refer"></div></div>
 									<%end%>
 								</div>
 								<!--<expand>-->

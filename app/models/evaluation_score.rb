@@ -5,5 +5,6 @@ class EvaluationScore < ActiveRecord::Base
   accepts_nested_attributes_for :evaluation_comment
   attr_accessible :evaluator_id, :submitter_id, :score_id,
  :evaluation_id,:evaluation_comment_attributes
-	validates_presence_of :score_id
+#	validates_presence_of :score_id
+  validates :score_id, :presence => { :message => "Point is required" }
 end
