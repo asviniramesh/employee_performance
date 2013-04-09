@@ -18,7 +18,7 @@ class Employee < ActiveRecord::Base
   has_one :evaluation_summary
   
   attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_role_ids, :role_ids,
-  								:employee_history_ids, :employee_detail_attributes, :evaluation_ids, :evaluation_summary_attributes
+  								:employee_history_ids, :employee_detail_attributes, :evaluation_ids, :evaluation_summary_attributes, :employee_hierarchy_ids
  
   accepts_nested_attributes_for :employee_detail, :evaluation_summary, :allow_destroy => true
 
