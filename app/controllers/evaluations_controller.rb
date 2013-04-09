@@ -72,7 +72,7 @@ Evaluation.where('evaluation_status_id = ? and employee_id = ?',EvaluationStatus
     flash[:notice] = 'Your value was successfully created.'
 			redirect_to :action=> :new
 		else
-			render :action => :new
+			redirect_to :action=> :new
 		end
 	end
 	
