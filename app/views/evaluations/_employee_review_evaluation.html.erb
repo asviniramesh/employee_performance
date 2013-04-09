@@ -21,9 +21,9 @@
 									<%= s.hidden_field :submitter_id, :value=>@employee_review_evaluations[index].evaluation_scores.first.evaluator_id%>									
 									<%= s.fields_for :evaluation_comment do |v| %>
 									<%if v.object.new_record? %>
-									<div class="expnd_item descton"><%= v.text_area :comment,:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1",:readonly => true %></div>
+									<div class="expnd_item descton"><%= v.text_area :comment.slice(0,4),:placeholder=>"Manager Comment",:class=>"cmt_txt_ar", :rows=>"1",:readonly => true %></div>
 									<%else%>
-									<%=v.object.comment.slice(0,10)%>
+									<%=v.object.comment.slice(0,4)%>
 									<%end%></div>
 									<%end%><%end%><%end%>
 									<div class="expnd_item  ">
