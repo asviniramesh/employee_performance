@@ -27,6 +27,19 @@ function showDiv() {
 				document.getElementById('close').style.display = 'block'; 
 			} 
 			}
+			
+			
+function hideTeam() { 
+	if (document.getElementById) { 
+	document.getElementById('mngr').style.display = 'none'; 
+			} 
+			} 
+function showTeam() { 
+	if (document.getElementById) { 
+	document.getElementById('mngr').style.display = 'block'; 
+			} 
+			}
+			
 function hidemng() { 
 				if (document.getElementById) { 
 				document.getElementById('mng').style.display = 'none'; 

@@ -12,8 +12,8 @@
 										<div class="tab_head_child"><%= i==0 ? "Self Evaluation" : "Manager Evaluation"%><div class="dspnd_right" >
 											</div>
 										</div>
-
-									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%>&nbsp
+						<div style="padding:5px;">
+									<div class="descrpn_name" style="margin-left:1px;" > <%= i==0 ? "Self Points" : "Manager Points"%>&nbsp
 									<%if s.object.new_record? %><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' } %>  
 									<%else%><%=s.object.score.points%>
 									<%end%>
@@ -21,17 +21,17 @@
 									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
 									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
 									<% end %></div>
-									<%= s.fields_for :evaluation_comment do |v| %>
+									<%= s.fields_for :evaluation_comment do |v| %><br/>
 									
 									<%if v.object.new_record? %>
 									<div class="descrpn_name" style= "margin-left:-14px; width=470px;">
-									<%= v.text_area :comment,:placeholder=> "manager comment" ,:class=>"descr_txt_exp", :rows=>"1" %>
+									<%= v.text_area :comment,:placeholder=> "Manager Comment" ,:class=>"descr_txt_exp", :rows=>"1" %>
 									<%else%>
-									<div class="descrpn_name" style= "margin-left:-1px; width=470px;">
+									<div class="descrpn_name" style= "margin-left:-1px; width=470px;">Comments:
 									<%=v.object.comment%>
 									<%end%>
 									</div>
-									<% a = true %></div>
+									<% a = true %></div></div>
 									<%end%> <%i+=1%><%end%>
 
 									<div style=" margin-top:24px;">				

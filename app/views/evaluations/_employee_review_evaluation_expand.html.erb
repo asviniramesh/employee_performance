@@ -13,7 +13,8 @@
 										<div class="tab_head_child"><%= i==0 ? "Self Evaluation" : "Manager Evaluation"%><div class="dspnd_right" >
 											</div>
 										</div>
-									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points and Comments" : "Manager Points and Comments"%>
+										 <div style="padding:5px;">
+									<div class="descrpn_name" style="margin-left:1px;" ><%= i==0 ? "Self Points" : "Manager Points"%>
 									<%if !s.object.new_record? %>
 									<%= s.object.score.points%>  
 									<% end %>
@@ -22,8 +23,8 @@
 									<%= s.hidden_field :submitter_id, :value=>@employee_review_evaluations[index].evaluation_scores.first.evaluator_id%>
 									<% end %></div>
 									<%= s.fields_for :evaluation_comment do |v| %>
-									<div class="descrpn_name"  style= "margin-left:-1px; width=470px;"><%if !v.object.new_record? %><%= v.object.comment%><%end%></div>
-									<% a = true %></div>
+									<div class="descrpn_name"  style= "margin-left:-1px; width=470px;">Comments:&nbsp<%if !v.object.new_record? %><%= v.object.comment%><%end%></div>
+									<% a = true %></div></div>
 									<%end%> <%i+=1%><%end%>
 									<!--div class="descrpn_name">My Comments <select>
 									<option>1 Points </option>
