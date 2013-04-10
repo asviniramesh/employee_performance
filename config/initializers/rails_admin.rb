@@ -14,11 +14,11 @@ RailsAdmin.config do |config|
   # RailsAdmin may need a way to know who the current user is]
   config.current_user_method { current_employee } # auto-generated
 
-	#~ config.authenticate_with do
-		#~ unless current_employee.roles.blank?
-				#~ redirect_to main_app.new_employee_session_path unless current_employee.roles.map(&:name).include?('Admin') 
-		#~ end
-  #~ end
+	config.authenticate_with do
+		unless current_employee.roles.blank?
+				redirect_to main_app.new_employee_session_path unless current_employee.roles.map(&:name).include?('Admin') 
+		end
+  end
 
 # leave it to authorize
 #  config.authorize_with do
