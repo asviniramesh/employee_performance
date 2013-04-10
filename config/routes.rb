@@ -7,7 +7,7 @@ LiveTheValue::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
  #devise_for :employees
-  devise_for :employees, :controllers => {:sessions => "employees/sessions",:passwords => "employees/passwords",:registrations => "employees/registrations"}
+  devise_for :employees, :controllers => {:sessions => "employees/sessions",:passwords => "employees/passwords",:registrations => "employees/registrations",:confirmations => "employees/confirmations"}
   resources :evaluations do
 	  collection do
 		  get 'dashboard'
