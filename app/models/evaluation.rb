@@ -9,7 +9,6 @@ class Evaluation < ActiveRecord::Base
 		:score_id, :submitter_id,:evaluation_scores,:evaluation_scores_attributes
 
   delegate :status, :to => :evaluation_status, :prefix => false, :allow_nil => true
-		
 
   def set_status refer
 		if refer
@@ -19,5 +18,4 @@ class Evaluation < ActiveRecord::Base
 		end
     self.save
   end
-
 end

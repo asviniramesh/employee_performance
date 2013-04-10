@@ -2,7 +2,7 @@ class Employee < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
@@ -16,7 +16,7 @@ class Employee < ActiveRecord::Base
   has_many :employee_hierarchies
   has_many :evaluations
   has_one :evaluation_summary
-  
+  after_save :test_for_id
   attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_role_ids, :role_ids,
   								:employee_history_ids, :employee_detail_attributes, :evaluation_ids, :evaluation_summary_attributes, :employee_hierarchy_ids
  
@@ -31,6 +31,15 @@ class Employee < ActiveRecord::Base
   	  self.employee_detail.first_name + " " + self.employee_detail.last_name unless self.employee_detail.first_name.blank?
     end
   end
+
+	def test_for_id
+		if self.roles.map(&:name).include?('Admin')
+			emp_hierarchy = self.employee_hierarchies.new
+			emp_hierarchy.superior_id = self.id
+			emp_hierarchy.save
+		end 
+	end
+
 end
 
 
