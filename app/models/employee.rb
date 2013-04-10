@@ -16,11 +16,11 @@ class Employee < ActiveRecord::Base
   has_many :employee_hierarchies
   has_many :evaluations
   has_one :evaluation_summary
-  after_save :test_for_id
+  after_create :set_superior_id
   attr_accessible :email, :password, :password_confirmation, :remember_me, :employee_role_ids, :role_ids,
-  								:employee_history_ids, :employee_detail_attributes, :evaluation_ids, :evaluation_summary_attributes, :employee_hierarchy_ids
+  								:employee_history_ids, :employee_detail_attributes, :evaluation_ids, :evaluation_summary_attributes, :employee_hierarchies_attributes
  
-  accepts_nested_attributes_for :employee_detail, :evaluation_summary, :allow_destroy => true
+  accepts_nested_attributes_for :employee_detail, :employee_hierarchies, :evaluation_summary, :allow_destroy => true
 
   def get_manager_reviewed_evaluations
     @manager_reviewed_evaluations = self.evaluations.where('evaluation_status_id = ?', EvaluationStatus.find_by_status('Manager_Evaluated').id)
@@ -32,7 +32,7 @@ class Employee < ActiveRecord::Base
     end
   end
 
-	def test_for_id
+	def set_superior_id
 		if self.roles.map(&:name).include?('Admin')
 			emp_hierarchy = self.employee_hierarchies.new
 			emp_hierarchy.superior_id = self.id
