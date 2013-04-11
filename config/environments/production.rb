@@ -16,8 +16,11 @@ LiveTheValue::Application.configure do
 config.eager_load = true
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
+  
   config.action_mailer.default_url_options = {:host =>'secret-chamber-2705.herokuapp.com'}
+  
   config.action_mailer.delivery_method = :smtp
+  
   config.action_mailer.smtp_settings = {
   address:              'smtp.gmail.com',
   port:                 587,
@@ -29,6 +32,10 @@ config.eager_load = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_deliveries = true
 
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH

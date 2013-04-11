@@ -28,6 +28,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'exception_notification', :require => 'exception_notifier'
 
 
 group :production do
