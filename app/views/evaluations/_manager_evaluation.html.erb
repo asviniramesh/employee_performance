@@ -3,7 +3,7 @@
 								<%= form_for @manager_review_evaluations[index] do |f| %>
 								
 									<div class="expnd" id=<%=index%>  onclick="javascript:showmanager(this.id)"></div>
-									<div class="expnd_item value_name"><%=value.title%>..</div>
+									<div class="expnd_item value_name"><%=value.title.truncate(23)%>..</div>
 									<!--div class="expnd_item value_name"><%#=value.description.slice(0,5)%>..</div-->
 									<div class="check"><div class="expnd_item">
 									<%= f.fields_for :evaluation_scores do |s| %>

@@ -8,8 +8,8 @@
 <%= f.hidden_field :employee_id, :value=>current_employee.id%>
 <%= f.hidden_field :value_id, :value=>value.id%>
 <div class="expnd" id=<%=index%>  onclick="javascript:showself(this.id)"></div>
-<div class="expnd_item value_name" style="width:185px;"><%=value.title%>..</div>
-<!--div class="expnd_item descton_one"><%=value.description.slice(0,5)%>..</div-->
+<div class="expnd_item value_name" style="width:185px;"><%=value.title.truncate(23)%></div>
+<!--div class="expnd_item descton_one"><%=value.description%>..</div-->
 <%= f.fields_for :evaluation_scores do |s| %>
 <%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
 <%= s.hidden_field :submitter_id, :value=>current_employee.employee_hierarchies.first.superior_id %>
