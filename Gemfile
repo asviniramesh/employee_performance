@@ -28,10 +28,11 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'exception_notification', :require => 'exception_notifier'
 
 
 group :production do
-	gem 'pg'
+	gem "pg", "~> 0.14.1"
 end
 
 # To use ActiveModel has_secure_password
