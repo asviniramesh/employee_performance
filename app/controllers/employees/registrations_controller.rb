@@ -30,6 +30,7 @@ class Employees::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
+	  @employee_profile = current_employee.employee_detail
     render :edit
   end
 
