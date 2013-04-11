@@ -6,5 +6,5 @@ if ENV["RAILS_ENV"] == "production"
   LiveTheValue::Application.config.middleware.use ExceptionNotifier,
     :email_prefix => "[LTV : Error]",
     :sender_address => %("LTV Application" <rubysoftwaretest@gmail.com>),
-    :exception_recipients => ExceptionRecipient.all.blank? ? %w('venkateswara.rao@revenuemed.com') : ExceptionRecipient.all.map(&:email)
+    :exception_recipients => ExceptionRecipient.table_exists?  ? (ExceptionRecipient.all.blank? ? %w('venkateswara.rao@revenuemed.com') : ExceptionRecipient.all.map(&:email)) : %w('venkateswara.rao@revenuemed.com')
 end
