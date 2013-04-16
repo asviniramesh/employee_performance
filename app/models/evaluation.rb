@@ -6,9 +6,11 @@ class Evaluation < ActiveRecord::Base
   has_many :evaluation_scores
   accepts_nested_attributes_for :evaluation_scores
     attr_accessible  :evaluation_score_ids,:employee_id,:value_id, :evaluator_id, 
-		:score_id, :submitter_id,:evaluation_scores,:evaluation_scores_attributes
+		:score_id, :submitter_id,:evaluation_scores,:evaluation_scores_attributes, :evaluation_status_id
 
   delegate :status, :to => :evaluation_status, :prefix => false, :allow_nil => true
+
+	validates_associated :evaluation_scores
 
   def set_status refer
 		if refer
