@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  score_level: 1
-  description: MyText
-
-two:
-  score_level: 1
-  description: MyText
