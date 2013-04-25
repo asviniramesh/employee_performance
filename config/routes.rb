@@ -12,11 +12,14 @@ LiveTheValue::Application.routes.draw do
 	  collection do
 		  get 'dashboard'
 	  end
-	  
-	  #~ member do
-		  #~ get 'employee_profile'
-		#~ end
+		get :autocomplete_employee_detail_first_name, :on => :collection
+	   collection do
+		  get 'test_report'
+			post 'test_report'
 	  end
+	  end
+
+		
   	#~ devise_scope :employee do
 	      #~ match "/employees/sign_in" => "new_employee_session"
 	    #~ end 

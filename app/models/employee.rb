@@ -2,7 +2,7 @@ class Employee < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable, 
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
@@ -24,7 +24,7 @@ class Employee < ActiveRecord::Base
  
   accepts_nested_attributes_for :employee_detail, :employee_hierarchies, :evaluation_summary, :allow_destroy => true
   
-  before_validation :generate_password, :on => :create
+  #before_validation :generate_password, :on => :create
   after_create :set_superior_id
 
   def get_manager_reviewed_evaluations
@@ -48,6 +48,8 @@ class Employee < ActiveRecord::Base
   rails_admin do
     create do
       field :email
+			field :password
+			field :password_confirmation
       field	:employee_detail
       field :roles
       field :employee_hierarchies

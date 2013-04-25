@@ -18,6 +18,14 @@ module EvaluationsHelper
     end
 		team_members.uniq
 	end
+  
+  def employee_value_evaluation e, v
+    Evaluation.where('employee_id = ? and value_id = ?', e,v)
+  end
+  
+  def get_manager_score e, ev
+     ev.evaluation_scores.where('evaluator_id != ?', e.id).first.blank? ? '--' : ev.evaluation_scores.where('evaluator_id != ?', e.id).first.points 
+  end
 end
 
 

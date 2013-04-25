@@ -7,4 +7,6 @@ class EvaluationScore < ActiveRecord::Base
  :evaluation_id,:evaluation_comment_attributes
 #	validates_presence_of :score_id
   validates :score_id, :presence => { :message => "Point is required" }
+  
+ delegate :points, :to => :score, :prefix => false, :allow_nil => true
 end

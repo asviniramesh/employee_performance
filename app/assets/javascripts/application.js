@@ -12,5 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui
+//= require autocomplete-rails
+//= require_tree.
+
+$(document).ready(function() {
+	$('.expnd').click(function(){
+	var superior_id = $(this).attr('id');
+	$('.superior_'+superior_id).toggle();
+});
+});
+
+
+
+
+
 
