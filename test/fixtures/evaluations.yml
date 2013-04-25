@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  employee_id: 
+  value_id: 
+  evaluation_period_id: 
+  evaluation_status_id: 
+
+two:
+  employee_id: 
+  value_id: 
+  evaluation_period_id: 
+  evaluation_status_id: 

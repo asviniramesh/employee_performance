@@ -1,0 +1,31 @@
+<div class="right">
+			<div class="top_bar">
+				<div class="value">
+					<input class="value_btn" type="button" value="Value"/>
+<!--							<button class="value_btn" onClick="javascript:showDiv()">Show</button>
+					<button class="value_btn" onClick="javascript:showmng()">Show</button>-->
+				</div>
+			<div  class="user_details">
+				<label class="user_name"><%=@employee_profile.first_name%><%=@employee_profile.last_name%></label>
+				<div class="user_photo"></div>
+					<div class="expand_arrow" id="box1">
+						<input class="arw_butt" type="button" onclick="showFrontLayer();"/>
+					</div>
+				</div>
+			</div><!--top_bar-->
+				<div id="baselayer">
+	<div id="bg_mask">
+	<div id="frontlayer">
+	<div class="photo_user"></div>
+	<div class="user_options">
+		<span class="user_option_list"><%=@employee_profile.first_name%><%=@employee_profile.last_name%></span><br /><br />
+		<span class="user_option_list">Edit My Profile</span><br /><br /><br />
+	
+		<% if employee_signed_in? %>
+		<%= link_to "Log out",destroy_employee_session_path, :method => 'get', :class=>"user_option_logout" %>
+		<%end%>	
+
+		</div>
+	</div>
+</div>
+</div>

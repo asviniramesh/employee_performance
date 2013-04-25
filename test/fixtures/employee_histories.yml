@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  changed_column_name: MyString
+  changed_table_name: MyString
+  changed_value: MyString
+  employee_id: 
+
+two:
+  changed_column_name: MyString
+  changed_table_name: MyString
+  changed_value: MyString
+  employee_id: 

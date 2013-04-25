@@ -1,0 +1,14 @@
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+ <div class="login_option_inner">
+ EMAIL<br />
+  <%= f.email_field :email, :autofocus => true, :class=>"login_text_box logn " %><br /><br />
+  <%= f.submit "Send instructions", :class=>"sign_in_btn" %><br /><br /></div>
+ <%if resource.errors.present?%>
+						<div class="error_box">
+				 <%#= devise_error_messages!%>
+					<% resource.errors.full_messages.each do |msg| %>
+				       <p><%= msg %></p>
+				       <% end %></div> <% end %>
+				 <%end%>
+<%#= render :partial => "devise/shared/links" %>
+

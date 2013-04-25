@@ -1,0 +1,10 @@
+<p>Welcome <%= @resource.email %>!</p><br>
+<p>You have been successfully registered on the LTV system.</p><br>
+<p>your Username is "<%= @resource.email %>" and password is  <h6>"12345678" </h6></p><br>
+<p>You can confirm your account through the link below:</p>
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @resource.confirmation_token) %></p>
+<p>pleae change your password once you login.</p>
+
+
+Thankyou,
+Admin.

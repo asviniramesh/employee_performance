@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  hierarchy_order: 1
+  superior_id: 1
+  employee_id: 
+
+two:
+  hierarchy_order: 1
+  superior_id: 1
+  employee_id: 

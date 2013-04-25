@@ -1,0 +1,52 @@
+								<div id=<%= "manager_"+ "#{index}"%> class="tabscontent_det my_test" style="display:none;">
+									<div  class="dspnd" id=<%=index%>  onclick="javascript:hidemanager(this.id)">
+										</div>
+										<%= form_for @manager_review_evaluations[index] do |f| %>
+										<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
+									<div class="max" onclick="showFrontLayerone();"></div>
+									<div class="descrpn_name">DESCRIPTION</div>
+									<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>					<% a = false %>
+<% i=0 %>			
+									<%= f.fields_for :evaluation_scores do |s| %>
+<div class="descrpn_name_child">
+										<div class="tab_head_child"><%= i==0 ? "Self Evaluation" : "Manager Evaluation"%><div class="dspnd_right" >
+											</div>
+										</div>
+						<div style="padding:5px;">
+									<div class="descrpn_name" style="margin-left:1px;" > <%= i==0 ? "Self Points" : "Manager Points"%>&nbsp
+									<%if s.object.new_record? %><%= s.select :score_id, @scores.collect{ |u| [u.points, u.id] }, { :prompt => '--' } %>  
+									<%else%><%=s.object.score.points%>
+									<%end%>
+									<% if a %>
+									<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+									<%= s.hidden_field :submitter_id, :value=>@manager_review_evaluations[index].evaluation_scores.first.evaluator_id%>
+									<% end %></div>
+									<%= s.fields_for :evaluation_comment do |v| %><br/>
+									
+									<%if v.object.new_record? %>
+									<div class="descrpn_name" style= "margin-left:-14px; width=470px;">
+									<%= v.text_area :comment,:placeholder=> "Manager Comment" ,:class=>"descr_txt_exp", :rows=>"1" %>
+									<%else%>
+									<div class="descrpn_name" style= "margin-left:-1px; width=470px;">Comments:
+									<%=v.object.comment%>
+									<%end%>
+									</div>
+									<% a = true %></div></div>
+									<%end%> <%i+=1%><%end%>
+
+									<div style=" margin-top:24px;">				
+										<div class="submit_value">
+											<input  type="button" value="Close" class="cmn_btn" id=<%=index%>  onclick="javascript:hidemanager(this.id)"/>
+											<!--input type="submit" value="Refer" class="cmn_btn" /-->
+											<input  type="submit" value="Submit" class="accept_btn" style="float: right;" />
+											<!--div class="giff_ldr" style="float:right; padding-right:5px;"></div-->
+											</div>
+									</div>
+								<!--<expand>-->
+								</div>
+								<%end%>
+
+
+
+
+

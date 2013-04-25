@@ -1,0 +1,24 @@
+<%= render :partial => 'self_evaluation_header' %> 
+<%= render :partial => 'self_evaluation' %> 
+<%= render :partial => 'employee_review_header' %>
+<%= render :partial => 'employee_review_evaluation' %> 
+<%if !(current_employee.roles.map(&:name).include?("Employee") && current_employee.roles.count == 1) %>
+<%= render :partial => 'manager_evaluation_header' %> 
+
+<%unless @manager_review_values.blank?%>
+<% get_team_members_for(@manager_review_evaluations).each do |id|  %>
+<label class="hdng"><%= Employee.find(id).name%></label>
+<% @manager_review_values.each_with_index do |value,index|%>
+<% if id == @manager_review_evaluations[index].employee_id%>
+<%= render :partial => 'manager_evaluation', :locals => {:index => index, :value=> value} %> 
+<%end%>
+<%end%>
+<%end%>
+<%end%>  
+
+
+</div>
+</div>
+<%end%>
+
+

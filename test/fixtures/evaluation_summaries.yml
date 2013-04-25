@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  total_score: 1
+  employee_id: 
+
+two:
+  total_score: 1
+  employee_id: 

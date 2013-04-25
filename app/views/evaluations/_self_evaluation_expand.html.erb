@@ -1,0 +1,45 @@
+	<div id= <%= "self_"+ "#{index}"%>  class="tabscontent_det " style="display:none;">
+<div  class="dspnd" id=<%=index%>  onclick="javascript:hideself(this.id)">
+	</div>
+	<%= form_for @evaluation do |f| %>
+	<%= f.hidden_field :employee_id, :value=>current_employee.id%>
+<%= f.hidden_field :value_id, :value=>value.id%>
+	<textarea class="cmt_txt_exp value_name" rows="1" readonly><%=value.title%></textarea>
+<div class="max" onclick="showFrontLayerone();"></div>
+<div class="descrpn_name">DESCRIPTION</div>
+<textarea class="descr_txt_exp" rows="3" readonly><%=value.description%></textarea>
+
+
+		<div class="descrpn_name_child">
+										<div class="tab_head_child">Self Evaluation
+										<%= f.fields_for :evaluation_scores do |s| %>
+		<%= s.hidden_field :evaluator_id, :value=>current_employee.id %>
+		<%= s.hidden_field :submitter_id, :value=>current_employee.employee_hierarchies.first.superior_id %>
+											<div class="dspnd_right" >
+											</div>
+										</div>
+										 <div style="padding:5px;">Self Points
+									<%= s.select :score_id, options_for_select(@scores.collect{ |u| [u.points, u.id] }),{:prompt=>"--"}%>
+									<%= s.fields_for :evaluation_comment do |v| %>
+									<div class="descrpn_name" style= "margin-left:-16px; width=470px;">
+		<%= v.text_area :comment,:placeholder=>"My Comment",:class=>"descr_txt_exp", :rows=>"1" %></div>
+									 </div></div>
+
+		<div style=" margin-top:24px;">	
+		<div class="submit_value" >
+		<input  type="button" value="Close" class="cmn_btn" id=<%=index%>  onclick="javascript:hideself(this.id)"/>
+		<%= f.submit "Submit",  :class => "accept_btn" %>
+			<!--input  type="submit" value="Submit" class="cmn_btn"/-->
+			<!--input type="submit" value="Save" class="cmn_btn" /-->
+			<!--div class="giff_ldr" style="float:right; padding-right:5px;"></div-->
+			</div>
+			</div>
+					<% end %>
+<% end %>
+<% end %>
+	</div>
+
+	<!--	<next value>-->
+				
+
+ 
