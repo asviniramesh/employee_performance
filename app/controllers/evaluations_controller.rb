@@ -113,21 +113,20 @@ end
 			@superior_ids = EmployeeHierarchy.all.map(&:superior_id).uniq
 			@superior_employees = Employee.where(:id=>[@superior_ids]).index_by(&:id)
 			@first_level_emp_ids =  EmployeeHierarchy.where("superior_id = ?",current_employee.id).map(&:employee_id)
-			@first_level_records = Employee.where(:id=>[@first_level_emp_ids]).index_by(&:id)
 			if params[:first_name]
 				@first_level_records =  EmployeeDetail.search(params[:first_name]).map(&:employee).index_by(&:id)
 				@master_record_set = @first_level_records
 			else
 				@first_level_records = Employee.where(:id=>[@first_level_emp_ids]).index_by(&:id)
-				@master_record_set = {current_employee.id =>  @first_level_records }
+				@master_record_set = {current_employee.id => @first_level_emp_ids.blank? ? current_employee : @first_level_records }
 			end
-
 			@first_level_records.each_pair do |key,value|
 				@first_key = key
 				@second_level_emp_ids = EmployeeHierarchy.where(:superior_id => key).map(&:employee_id)
 				@second_level_records = Employee.where(:id=>[@second_level_emp_ids]).index_by(&:id)
+				puts @second_level_emp_ids
 				if params[:first_name]
-					@master_record_set[@first_level_records.keys.first][key] = @second_level_records if @second_level_records.present?
+					@master_record_set[@first_level_records.keys.first] = @second_level_records if @second_level_records.present?
 				else
 					@master_record_set[current_employee.id][key] = @second_level_records if @second_level_records.present?
 				end
@@ -136,7 +135,7 @@ end
 					@third_level_records = Employee.where(:id=>[@third_level_emp_ids]).index_by(&:id)
 
 				if params[:first_name]
-					@master_record_set[@first_level_records.keys.first][@first_key][key] = @third_level_records if @third_level_records.present?
+					@master_record_set[@first_level_records.keys.first][key] = @third_level_records if @third_level_records.present?
 				else
 					@master_record_set[current_employee.id][@first_key][key] = @third_level_records if @third_level_records.present?
 				end
