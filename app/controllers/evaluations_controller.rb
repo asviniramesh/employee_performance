@@ -1,7 +1,8 @@
 class EvaluationsController < ApplicationController
+  before_filter :authenticate_employee!
 	#~ def dashboard
 	#~ end
- autocomplete :employee_detail, :first_name
+# autocomplete :employee_detail, :first_name
 	def index
 		@evaluation=Evaluation.all
 	end
@@ -11,8 +12,9 @@ class EvaluationsController < ApplicationController
 		@values=Value.all
 		self_evaluated_status_id = EvaluationStatus.find_by_status('Self_Evaluated').id
     @evaluated_values = []
-		@values.each do |v|
-    e = Evaluation.find_by_value_id_and_employee_id_and_evaluation_status_id(v.id, current_employee.id, self_evaluated_status_id)
+		Value.all(:include => :evaluations).each do |v|
+#    e = Evaluation.find_by_value_id_and_employee_id_and_evaluation_status_id(v.id, current_employee.id, self_evaluated_status_id)
+     e = v.get_current_evaluations current_employee
     unless e.evaluation_scores.map(&:submitter_id).blank?
       @evaluated_values << v 
    end if e
@@ -100,50 +102,49 @@ Evaluation.where('evaluation_status_id = ? and employee_id = ?',EvaluationStatus
 		@evaluation.destroy
 	end
 
-	def check_condition ev
-		if current_employee.roles.map(&:name).include?('Manager')
-			ev.evaluation_scores.count == 1
+  def check_condition ev
+    if current_employee.roles.map(&:name).include?('Manager')
+      ev.evaluation_scores.count == 1
+    else
+      true
+    end 
+  end
+
+	def test_report
+	  @employee_profile = current_employee.employee_detail
+	  @values=Value.all
+		@superior_ids = EmployeeHierarchy.all.map(&:superior_id).uniq
+		@superior_employees = Employee.where(:id=>[@superior_ids]).index_by(&:id)
+		@first_level_emp_ids =  EmployeeHierarchy.where("superior_id = ?",current_employee.id).map(&:employee_id)
+		@first_level_records = Employee.where(:id=>[@first_level_emp_ids]).index_by(&:id)
+		if params[:first_name]
+		  @first_level_records =  EmployeeDetail.search(params[:first_name]).map(&:employee).index_by(&:id)
+			@master_record_set = @first_level_records
 		else
-			true
-	end 
-end
-
-		def test_report
-			@employee_profile = current_employee.employee_detail
-		@values=Value.all
-			@superior_ids = EmployeeHierarchy.all.map(&:superior_id).uniq
-			@superior_employees = Employee.where(:id=>[@superior_ids]).index_by(&:id)
-			@first_level_emp_ids =  EmployeeHierarchy.where("superior_id = ?",current_employee.id).map(&:employee_id)
-			@first_level_records = Employee.where(:id=>[@first_level_emp_ids]).index_by(&:id)
-			if params[:first_name]
-				@first_level_records =  EmployeeDetail.search(params[:first_name]).map(&:employee).index_by(&:id)
-				@master_record_set = @first_level_records
-			else
-				@first_level_records = Employee.where(:id=>[@first_level_emp_ids]).index_by(&:id)
-				@master_record_set = {current_employee.id =>  @first_level_records }
-			end
-
-			@first_level_records.each_pair do |key,value|
-				@first_key = key
-				@second_level_emp_ids = EmployeeHierarchy.where(:superior_id => key).map(&:employee_id)
-				@second_level_records = Employee.where(:id=>[@second_level_emp_ids]).index_by(&:id)
-				if params[:first_name]
-					@master_record_set[@first_level_records.keys.first][key] = @second_level_records if @second_level_records.present?
-				else
-					@master_record_set[current_employee.id][key] = @second_level_records if @second_level_records.present?
-				end
-				@second_level_records.each_pair do |key,value|
-					@third_level_emp_ids = EmployeeHierarchy.where(:superior_id => key).map(&:employee_id)
-					@third_level_records = Employee.where(:id=>[@third_level_emp_ids]).index_by(&:id)
-
-				if params[:first_name]
-					@master_record_set[@first_level_records.keys.first][@first_key][key] = @third_level_records if @third_level_records.present?
-				else
-					@master_record_set[current_employee.id][@first_key][key] = @third_level_records if @third_level_records.present?
-				end
-				end
-			end
+		  @first_level_records = Employee.where(:id=>[@first_level_emp_ids]).index_by(&:id)
+			@master_record_set = {current_employee.id =>  @first_level_records }
 		end
+
+		@first_level_records.each_pair do |key,value|
+		  @first_key = key
+			@second_level_emp_ids = EmployeeHierarchy.where(:superior_id => key).map(&:employee_id)
+			@second_level_records = Employee.where(:id=>[@second_level_emp_ids]).index_by(&:id)
+			if params[:first_name]
+			  @master_record_set[@first_level_records.keys.first][key] = @second_level_records if @second_level_records.present?
+			else
+			  @master_record_set[current_employee.id][key] = @second_level_records if @second_level_records.present?
+			end
+			@second_level_records.each_pair do |key,value|
+			  @third_level_emp_ids = EmployeeHierarchy.where(:superior_id => key).map(&:employee_id)
+			  @third_level_records = Employee.where(:id=>[@third_level_emp_ids]).index_by(&:id)
+				if params[:first_name]
+				  @master_record_set[@first_level_records.keys.first][@first_key][key] = @third_level_records if @third_level_records.present?
+				else
+				  @master_record_set[current_employee.id][@first_key][key] = @third_level_records if @third_level_records.present?
+				end
+			end
+	  end
+	end
 
 	def employee_profile
 		@employee_profile = current_employee.employee_detail
