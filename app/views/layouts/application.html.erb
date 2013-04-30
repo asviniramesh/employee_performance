@@ -9,11 +9,16 @@
 	</head>
 	<body>
 
-	<!--%- if devise_controller? && resource_name == :employee%-->
-	<%- if devise_controller? && resource_name == :employee && action_name == 'new'%>
-    <%= render :partial => '/layouts/login'%>
-   <%- else %>
+	  <!--%- if devise_controller? && resource_name == :employee%-->
+    <%- if devise_controller? && resource_name == :employee %>
+      <%- if current_employee %>
+        <%= render :partial => '/layouts/home'%>
+      <%else%>
+        <%= render :partial => '/layouts/login'%>
+      <%end%>
+    <%- else %>
       <%= render :partial => '/layouts/home'%>
-   <%- end %>
-	</body>
+    <%- end %>
+  </body>
 </html>
+ 

@@ -21,6 +21,10 @@ $(document).ready(function() {
 	var superior_id = $(this).attr('id');
 	$('.superior_'+superior_id).toggle();
 });
+  $("#frontlayer").click(function(){
+	  $("#frontlayer").hide();
+  });
+ 
 });
 
 // JavaScript Document
