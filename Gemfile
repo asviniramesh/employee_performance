@@ -15,6 +15,7 @@ gem 'heroku'
 gem 'thin'
 gem 'pry'
 gem 'pry-debugger'
+
 gem 'rails3-jquery-autocomplete'
 
 # Gems used only for assets and not required

@@ -1,7 +1,8 @@
 class EvaluationsController < ApplicationController
-	#~ def dashboard
-	#~ end
+	
  autocomplete :employee_detail, :first_name
+  before_filter :authenticate_employee!
+	
 	def index
 		@evaluation=Evaluation.all
 	end
@@ -9,9 +10,11 @@ class EvaluationsController < ApplicationController
 	def new
 		@employee_profile = current_employee.employee_detail
 		@values=Value.all
-    @evaluated_values = []
-		@values.each do |v|
-    e = Evaluation.find_by_value_id_and_employee_id(v.id, current_employee.id)
+		self_evaluated_status_id = EvaluationStatus.find_by_status('Self_Evaluated').id
+                @evaluated_values = []
+		Value.all(:include => :evaluations).each do |v|
+#    e = Evaluation.find_by_value_id_and_employee_id_and_evaluation_status_id(v.id, current_employee.id, self_evaluated_status_id)
+     e = v.get_current_evaluations current_employee
     unless e.evaluation_scores.map(&:submitter_id).blank?
       @evaluated_values << v 
    end if e
@@ -26,7 +29,7 @@ class EvaluationsController < ApplicationController
 
 	#manager review part
   evs = []
-  Evaluation.where('evaluation_status_id = ?',EvaluationStatus.find_by_status('Self_Evaluated').id).each do |ev|
+  Evaluation.where('evaluation_status_id = ?', self_evaluated_status_id).each do |ev|
    ev.evaluation_scores.each do |es|
      evs << es if es.submitter_id == current_employee.id 
    end if check_condition(ev)
@@ -154,6 +157,7 @@ end
 		@first_level_records.each do |k|
 			@employee_detail << k.employee_detail
 		end
+
 	end
 
 	def employee_profile

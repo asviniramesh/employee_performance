@@ -17,17 +17,19 @@
 //= require_tree.
 
 
-// JavaScript Document
 $(document).ready(function() {
 	$('.expnd').click(function(){
 	var superior_id = $(this).attr('id');
 	$('.superior_'+superior_id).toggle();
 });
+
 	$("#frontlayer").click(function(){
 	$("#frontlayer").hide();
 });
 });
 
+
+// JavaScript Document
 function showFrontLayer() {
 				document.getElementById('bg_mask').style.visibility='visible';
 				document.getElementById('frontlayer').style.visibility='visible';
@@ -124,7 +126,4 @@ function showemployee(id) {
                 input.value = input.defaultValue;
             }
         }
-
-
-
 

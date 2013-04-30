@@ -17,10 +17,12 @@ LiveTheValue::Application.routes.draw do
 		  get 'test_report'
 			post 'test_report'
 	  end
+
 		collection do
 		  get 'team'
-			post 'team'
+		  post 'team'
 	  end
+
 	  end
 
 		
