@@ -109,7 +109,7 @@ end
 
 		def test_report
 			@employee_profile = current_employee.employee_detail
-		@values=Value.all
+			@values=Value.all
 			@superior_ids = EmployeeHierarchy.all.map(&:superior_id).uniq
 			@superior_employees = Employee.where(:id=>[@superior_ids]).index_by(&:id)
 			@first_level_emp_ids =  EmployeeHierarchy.where("superior_id = ?",current_employee.id).map(&:employee_id)
@@ -142,6 +142,19 @@ end
 				end
 			end
 		end
+	
+	def team
+		@employee_profile = current_employee.employee_detail
+		@values=Value.all
+		@superior_ids = EmployeeHierarchy.all.map(&:superior_id).uniq
+		@superior_employees = Employee.where(:id=>[@superior_ids]).index_by(&:id)
+		@first_level_emp_ids =  EmployeeHierarchy.where("superior_id = ?",current_employee.id).map(&:employee_id)
+		@first_level_records = Employee.where(:id=>[@first_level_emp_ids])
+		@employee_detail = []
+		@first_level_records.each do |k|
+			@employee_detail << k.employee_detail
+		end
+	end
 
 	def employee_profile
 		@employee_profile = current_employee.employee_detail
