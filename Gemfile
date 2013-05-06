@@ -12,9 +12,7 @@ gem 'cancan'
 gem 'rails_admin'
 gem 'foreigner'
 gem 'heroku'
-gem 'thin'
-gem 'pry'
-gem 'pry-debugger'
+
 
 gem 'rails3-jquery-autocomplete'
 
