@@ -101,6 +101,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.22)
     multi_json (1.7.2)
+    multiinsert (0.0.2)
     mysql2 (0.3.11)
     nested_form (0.3.2)
     netrc (0.7.7)
@@ -207,6 +208,7 @@ DEPENDENCIES
   foreigner
   heroku
   jquery-rails
+  multiinsert (~> 0.0.2)
   mysql2
   pg (~> 0.14.1)
   pry

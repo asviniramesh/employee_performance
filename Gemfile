@@ -15,6 +15,7 @@ gem 'heroku'
 gem 'thin'
 gem 'pry'
 gem 'pry-debugger'
+gem "multiinsert", "~> 0.0.2"
 
 gem 'rails3-jquery-autocomplete'
 

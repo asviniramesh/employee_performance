@@ -7,13 +7,18 @@ LiveTheValue::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', :as => 'rails_admin'
 
  #devise_for :employees
-  devise_for :employees, :controllers => {:sessions => "employees/sessions",:passwords => "employees/passwords",:registrations => "employees/registrations",:confirmations => "employees/confirmations"}
+  devise_for :employees, :controllers => {:sessions => "employees/sessions",:passwords => "employees/passwords",:registrations => "employees/registrations",:confirmations => "employees/confirmations"} 
+
+	resources :employees do
+    resources :comments
+  end
+
   resources :evaluations do
 	  collection do
 		  get 'dashboard'
 	  end
 		get :autocomplete_employee_detail_first_name, :on => :collection
-	   collection do
+	  collection do
 		  get 'test_report'
 			post 'test_report'
 	  end
@@ -22,10 +27,9 @@ LiveTheValue::Application.routes.draw do
 		  get 'team'
 		  post 'team'
 	  end
+	 end
 
-	  end
 
-		
   	#~ devise_scope :employee do
 	      #~ match "/employees/sign_in" => "new_employee_session"
 	    #~ end 

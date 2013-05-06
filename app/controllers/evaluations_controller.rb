@@ -157,7 +157,6 @@ end
 		@first_level_records.each do |k|
 			@employee_detail << k.employee_detail
 		end
-
 	end
 
 	def employee_profile
