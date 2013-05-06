@@ -1,4 +1,3 @@
-require 'multiinsert'
 class CommentsController < ApplicationController
 	before_filter :find_comment
 	def new
@@ -16,7 +15,7 @@ class CommentsController < ApplicationController
 	end
 
 	def create
-		Multiinsert::SaveRecords.new.save(params[:comment],"comment","save")
+		#Multiinsert::SaveRecords.new.save(params[:comment],"comment","save")
 	end
 
 #	def list_comments
