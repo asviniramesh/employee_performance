@@ -9,9 +9,9 @@ LiveTheValue::Application.routes.draw do
  #devise_for :employees
   devise_for :employees, :controllers => {:sessions => "employees/sessions",:passwords => "employees/passwords",:registrations => "employees/registrations",:confirmations => "employees/confirmations"} 
 
-	resources :employees do
-    resources :comments
-  end
+	#~ resources :employees do
+    #~ resources :comments
+  #~ end
 
   resources :evaluations do
 	  collection do
