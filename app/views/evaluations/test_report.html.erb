@@ -24,7 +24,7 @@
 			<%= record.name%></td>
 		 	<% total_score = 0 %>
 			<%@values.each do |val|%>
-				<% eve = employee_value_evaluation  k ,val %>
+				<% eve = employee_last_evaluation  k ,val %>
 				<% unless eve.blank?%>
 				  <% eve.each do |ev| %>
 				    <% s = get_manager_score record , ev%>
@@ -54,7 +54,7 @@
 					</td>
 			 		<% total_score = 0 %>
 					<%@values.each do |val|%>
-						<% eve = employee_value_evaluation  k1 ,val %>
+						<% eve = employee_last_evaluation  k1 ,val %>
 						<% unless eve.blank?%>
 						  <% eve.each do |ev| %>
 						    <% s = get_manager_score record1 , ev%>
@@ -83,7 +83,7 @@
 								<%= record2.name%></td>
 					 		<% total_score = 0 %>
 							<%@values.each do |val|%>
-								<% eve = employee_value_evaluation  k2 ,val %>
+								<% eve = employee_last_evaluation  k2 ,val %>
 								<% unless eve.blank?%>
 									<% eve.each do |ev| %>
 										<% s = get_manager_score record2 , ev%>
@@ -109,7 +109,7 @@
 									<td><%= record3.name%></td>
 							 		<% total_score = 0 %>
 									<%@values.each do |val|%>
-										<% eve = employee_value_evaluation  k3 ,val %>
+										<% eve = employee_last_evaluation  k3 ,val %>
 										<% unless eve.blank?%>
 											<% eve.each do |ev| %>
 												<% s = get_manager_score record3 , ev%>

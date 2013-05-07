@@ -26,6 +26,10 @@ module EvaluationsHelper
   def get_manager_score e, ev
      ev.evaluation_scores.where('evaluator_id != ?', e.id).first.blank? ? '--' : ev.evaluation_scores.where('evaluator_id != ?', e.id).first.points 
   end
+
+	def employee_last_evaluation emp_id, val_id
+		[Evaluation.where(:employee_id => emp_id, :value_id => val_id).order('updated_at').last].compact
+	end
 end
 
 
