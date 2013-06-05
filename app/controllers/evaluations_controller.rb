@@ -113,11 +113,11 @@ end
 		def test_report
 			if params[:date]
 				month = "0" + params[:date][:month] 
-				@dates = []
+				dates = []
 				EvaluationPeriod.all.map(&:self_eval_start_date).each do |a|
 					d = a.strftime("%m")
 					if d == month 
-						@dates << a
+						dates << a
 					end
 				end
 			end
