@@ -111,12 +111,14 @@ Evaluation.where('evaluation_status_id = ? and employee_id = ?',EvaluationStatus
 end
 
 		def test_report
-			month = "0" + params[:date][:month]
-  		dates = []
-			EvaluationPeriod.all.map(&:self_eval_start_date).each do |a|
-				d = a.strftime("%m")
-				if d == month 
-					dates << a
+			if params[:date]
+				month = "0" + params[:date][:month] 
+				dates = []
+				EvaluationPeriod.all.map(&:self_eval_start_date).each do |a|
+					d = a.strftime("%m")
+					if d == month 
+						dates << a
+					end
 				end
 			end
 			@eval_periods = EvaluationPeriod.where(:self_eval_start_date => dates).map(&:id)
