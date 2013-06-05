@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506042247) do
+ActiveRecord::Schema.define(:version => 20130605120517) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment"
@@ -92,6 +92,13 @@ ActiveRecord::Schema.define(:version => 20130506042247) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "frequency"
+  end
+
+  create_table "evaluation_frequency_values", :force => true do |t|
+    t.integer  "evaluation_frequency_id"
+    t.integer  "value_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "evaluation_intervals", :force => true do |t|
