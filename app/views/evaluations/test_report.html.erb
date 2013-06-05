@@ -5,6 +5,15 @@
  <%= autocomplete_field_tag 'first_name', '','/evaluations/autocomplete_employee_detail_first_name', :size => 35%> 
 <%= submit_tag "Search", :name => nil %>
 <% end %></br></br></br>
+
+
+
+<%= form_tag '/evaluations/test_report' do %>
+<%= select_month(14,:prompt => 'Choose month')%>
+<%= submit_tag "Search", :name => nil %>
+<% end %></br></br></br>
+
+<% @eval_periods.each do |period| %>
 	<table border="1" align = "center">
 		<tr>
 		  <th>Name</th>
@@ -24,7 +33,7 @@
 			<%= record.name%></td>
 		 	<% total_score = 0 %>
 			<%@values.each do |val|%>
-				<% eve = employee_last_evaluation  k ,val %>
+				<% eve = employee_last_evaluation  k, val, period %>
 				<% unless eve.blank?%>
 				  <% eve.each do |ev| %>
 				    <% s = get_manager_score record , ev%>
@@ -54,7 +63,7 @@
 					</td>
 			 		<% total_score = 0 %>
 					<%@values.each do |val|%>
-						<% eve = employee_last_evaluation  k1 ,val %>
+						<% eve = employee_last_evaluation  k1, val, period %>
 						<% unless eve.blank?%>
 						  <% eve.each do |ev| %>
 						    <% s = get_manager_score record1 , ev%>
@@ -83,7 +92,7 @@
 								<%= record2.name%></td>
 					 		<% total_score = 0 %>
 							<%@values.each do |val|%>
-								<% eve = employee_last_evaluation  k2 ,val %>
+								<% eve = employee_last_evaluation  k2, val, period %>
 								<% unless eve.blank?%>
 									<% eve.each do |ev| %>
 										<% s = get_manager_score record2 , ev%>
@@ -109,7 +118,7 @@
 									<td><%= record3.name%></td>
 							 		<% total_score = 0 %>
 									<%@values.each do |val|%>
-										<% eve = employee_last_evaluation  k3 ,val %>
+										<% eve = employee_last_evaluation  k3, val, period %>
 										<% unless eve.blank?%>
 											<% eve.each do |ev| %>
 												<% s = get_manager_score record3 , ev%>
@@ -142,6 +151,8 @@
 
 		<%end%>
 	</table>
+</br></br></br></br>
+<% end %>
 </body>
 
 
