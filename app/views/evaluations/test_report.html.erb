@@ -14,13 +14,13 @@
 <% end %></br></br></br>
 
 <% @eval_periods.each do |period| %>
-	<table border="1" align = "center">
+	<table border="0" align = "center">
 		<tr>
-		  <th>Name</th>
+		  <th bgcolor="#CC3399">Name</th>
 			<%@values.each do |val|%>
-					<th><%=val.title%></th>
+					<th bgcolor="#CC3399"><%=val.title%></th>
 			<%end%>
-	 		<th>Total</th>
+	 		<th bgcolor="#CC3399">Total</th>
 		</tr>
 		<%@master_record_set.each_pair do |k,v|%>
 			<%if v.is_a?(Hash)%>
