@@ -16,11 +16,11 @@
 <% @eval_periods.each do |period| %>
 	<table border="1" align = "center">
 		<tr>
-		  <th bgcolor = "#B0B0B0">Name</th>
+		  <th>Name</th>
 			<%@values.each do |val|%>
-					<th bgcolor = "#B0B0B0">><%=val.title%></th>
+					<th><%=val.title%></th>
 			<%end%>
-	 		<th bgcolor = "#B0B0B0">Total</th>
+	 		<th>Total</th>
 		</tr>
 		<%@master_record_set.each_pair do |k,v|%>
 			<%if v.is_a?(Hash)%>
