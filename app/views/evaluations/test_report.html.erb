@@ -12,9 +12,9 @@
 <%= select_month(14,:prompt => 'Choose month')%>
 <%= submit_tag "Search", :name => nil %>
 <% end %></br></br></br>
-
+<% @dates.each do |date|%>
 <% @eval_periods.each do |period| %>
-<%= @dates%>
+<%= date%>
 	<table border="1" align = "center">
 		<tr>
 		  <th>Name</th>
@@ -153,7 +153,7 @@
 		<%end%>
 	</table>
 </br></br></br></br>
-<% end %>
+<% end %><% end %>
 </body>
 
 
