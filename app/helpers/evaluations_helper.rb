@@ -24,7 +24,7 @@ module EvaluationsHelper
   end
   
   def get_manager_score e, ev
-     ev.evaluation_scores.where('evaluator_id = ?', e.id).first.blank? ? '--' : ev.evaluation_scores.where('evaluator_id = ?', e.id).first.points 
+     ev.evaluation_scores.where('submitter_id = ?', e.id).first.blank? ? '--' : ev.evaluation_scores.where('submitter_id = ?', e.id).first.points 
   end
 
 	def employee_last_evaluation emp_id, val_id, period
