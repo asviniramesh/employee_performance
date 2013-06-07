@@ -121,7 +121,7 @@ end
 					end
 				end
 			end
-			@eval_periods = EvaluationPeriod.where(:self_eval_start_date => @dates).map(&:id)
+			@eval_periods = EvaluationPeriod.where(:self_eval_start_date => @dates)
 			@employee_profile = current_employee.employee_detail
 			@values=Value.all
 			@superior_ids = EmployeeHierarchy.all.map(&:superior_id).uniq
