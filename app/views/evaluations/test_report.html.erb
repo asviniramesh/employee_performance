@@ -153,8 +153,8 @@
       <tr>
         <th>Values</th>
         <th>Selfpoints</th>
-				<th>SelfComments</th>
         <th>Managerpoints</th>
+        <th>SelfComments</th>
         <th>ManagerComments</th>
       </tr>
       <% total_score = 0 %>
@@ -166,13 +166,15 @@
           <tr>
             <% s = get_self_score record , ev%>
             <% m = get_manager_score record , ev%>
-            <% ec = get_self_comment ev%>
             <td><%=val.title%></td>
             <td><%= s %></td>
-            <td><%= ec[0].evaluation_comment.comment%></td>
             <td><%= m %></td>
-            <td><%= ec[1].evaluation_comment.comment%></td>
-         </tr>
+            <% ec = get_self_comment ev%>
+            <% ec.each do |o|%>
+              <td><%= o.evaluation_comment.comment%></td>
+            <% end %>
+
+            </tr>
             <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
             <% score+= (m == 'N/A' ? 0 : m.to_i) %>
           <%end%>
@@ -186,8 +188,6 @@
       <%end%>
       <tr><td>Total</td>
         <td><%=total_score == 0 ? '' : total_score%></td>
-				<td></td>
-				<td></td>
         <td><%=score == 0 ? '' : score%></td></tr>
     </table>
     <script>
@@ -212,15 +212,15 @@
       <% end %>
 
         
-      <div id="dialog_<%="#{k1}"+"_"+"#{period.id}"%>" title="<%= record1.name%> => <%= record.name%>">
+      <div id="dialog_<%="#{k1}"+"_"+"#{period.id}"%>" title="<%= record1.name%>">
         <table border="1" align = "center">
           <tr>
-		      <th>Values</th>
-		      <th>Selfpoints</th>
-					<th>SelfComments</th>
-		      <th>Managerpoints</th>
-		      <th>ManagerComments</th>
-      		</tr>
+            <th>Values</th>
+            <th>Selfpoints</th>
+            <th>Managerpoints</th>
+            <th>SelfComments</th>
+            <th>ManagerComments</th>
+          </tr>
           <% total_score = 0 %>
           <% score = 0 %>
           <%@values.each do |val|%>
@@ -228,13 +228,14 @@
             <% unless eve.blank?%>
               <% eve.each do |ev| %>
                 <% s = get_self_score record1 , ev%>
-				        <% m = get_manager_score record1 , ev%>
-				        <% ec = get_self_comment ev%>
-				        <td><%=val.title%></td>
-				        <td><%= s %></td>
-				        <td><%= ec[0].evaluation_comment.comment%></td>
-				        <td><%= m %></td>
-				        <td><%= ec[1].evaluation_comment.comment%></td>
+                <% m = get_manager_score record1 , ev%>
+                <td><%=val.title%></td>
+                <td><%= s %></td>
+                <td><%= m %></td>
+                <% ec = get_self_comment ev%>
+                <% ec.each do |o|%>
+                  <td><%= o.evaluation_comment.comment%></td>
+                <% end %>
 
                 </tr>
                 <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
@@ -250,8 +251,6 @@
           <%end%>
           <tr><td>Total</td>
             <td><%=total_score == 0 ? '' : total_score%></td>
-						<td></td>
-						<td></td>
             <td><%=score == 0 ? '' : score%></td></tr>
 
         </table>
@@ -277,15 +276,15 @@
             <% record2 = v2 %>
           <% end %>
          
-          <div id="dialog_<%="#{k2}"+"_"+"#{period.id}"%>" title="<%= record2.name%> => <%= record1.name%>">
+          <div id="dialog_<%="#{k2}"+"_"+"#{period.id}"%>" title="<%= record2.name%>">
             <table border="1" align = "center">
-               <tr>
-        			 	<th>Values</th>
-       				 	<th>Selfpoints</th>
-							 	<th>SelfComments</th>
-        				<th>Managerpoints</th>
-        				<th>ManagerComments</th>
-      					</tr>
+              <tr>
+                <th>Values</th>
+                <th>Selfpoints</th>
+                <th>Managerpoints</th>
+                <th>SelfComments</th>
+                <th>ManagerComments</th>
+              </tr>
               <% total_score = 0 %>
               <% score = 0 %>
               <%@values.each do |val|%>
@@ -293,13 +292,14 @@
                 <% unless eve.blank?%>
                   <% eve.each do |ev| %>
                     <% s = get_self_score record2 , ev%>
-            <% m = get_manager_score record2 , ev%>
-            <% ec = get_self_comment ev%>
-            <td><%=val.title%></td>
-            <td><%= s %></td>
-            <td><%= ec[0].evaluation_comment.comment%></td>
-            <td><%= m %></td>
-            <td><%= ec[1].evaluation_comment.comment%></td>
+                    <% m = get_manager_score record2 , ev%>
+                    <td><%=val.title%></td>
+                    <td><%= s %></td>
+                    <td><%= m %></td>
+                    <% ec = get_self_comment ev%>
+                    <% ec.each do |o|%>
+                      <td><%= o.evaluation_comment.comment%></td>
+                    <% end %>
 
                     </tr>
                     <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
@@ -315,8 +315,6 @@
               <%end%>
               <tr><td>Total</td>
                 <td><%=total_score == 0 ? '' : total_score%></td>
-								<td></td>
-								<td></td>
                 <td><%=score == 0 ? '' : score%></td></tr>
             </table>
             <script>
@@ -342,15 +340,15 @@
                 <% record3 = v3 %>
               <% end %>
         
-              <div id="dialog_<%="#{k3}"+"_"+"#{period.id}"%>" title="<%= record3.name%> => <%= record2.name%>">
+              <div id="dialog_<%="#{k3}"+"_"+"#{period.id}"%>" title="<%= record3.name%>">
                 <table border="1" align = "center">
-                   <tr>
-										<th>Values</th>
-										<th>Selfpoints</th>
-										<th>SelfComments</th>
-										<th>Managerpoints</th>
-										<th>ManagerComments</th>
-									</tr>
+                  <tr>
+                    <th>Values</th>
+                    <th>Selfpoints</th>
+                    <th>Managerpoints</th>
+                    <th>SelfComments</th>
+                    <th>ManagerComments</th>
+                  </tr>
                   <% total_score = 0 %>
                   <% score = 0 %>
                   <%@values.each do |val|%>
@@ -358,13 +356,14 @@
                     <% unless eve.blank?%>
                       <% eve.each do |ev| %>
                         <% s = get_self_score record3 , ev%>
-												<% m = get_manager_score record3 , ev%>
-												<% ec = get_self_comment ev%>
-												<td><%=val.title%></td>
-												<td><%= s %></td>
-												<td><%= ec[0].evaluation_comment.comment%></td>
-												<td><%= m %></td>
-												<td><%= ec[1].evaluation_comment.comment%></td>
+                        <% m = get_manager_score record3 , ev%>
+                        <td><%=val.title%></td>
+                        <td><%= s %></td>
+                        <td><%= m %></td>
+                        <% ec = get_self_comment ev%>
+                        <% ec.each do |o|%>
+                          <td><%= o.evaluation_comment.comment%></td>
+                        <% end %>
 
                         </tr>
                         <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
@@ -380,8 +379,6 @@
                   <%end%>
                   <tr><td>Total</td>
                     <td><%=total_score == 0 ? '' : total_score%></td>
-										<td></td>
-										<td></td>
                     <td><%=score == 0 ? '' : score%></td></tr>
                 </table>
               </div>
