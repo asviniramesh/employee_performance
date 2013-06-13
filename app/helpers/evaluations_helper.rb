@@ -27,9 +27,24 @@ module EvaluationsHelper
      ev.evaluation_scores.where('submitter_id = ?', e.id).first.blank? ? '--' : ev.evaluation_scores.where('submitter_id = ?', e.id).first.points 
   end
 
-	def employee_last_evaluation emp_id, val_id, period
+ def get_self_score e, ev
+     ev.evaluation_scores.where('submitter_id != ?', e.id).first.blank? ? '--' : ev.evaluation_scores.where('submitter_id != ?', e.id).first.points 
+  end
+
+	def employee_evaluation emp_id, val_id, period
 			[Evaluation.where(:employee_id => emp_id, :value_id => val_id, :evaluation_period_id => period).order('updated_at').last].compact
+	end
+
+	def get_self_comment ev
+		ec = []
+		ev.evaluation_scores.each do |c|
+			ec << c.evaluation_comment
 		end
+  end
+
+	def employee_last_evaluation emp_id, val_id
+			[Evaluation.where(:employee_id => emp_id, :value_id => val_id).order('updated_at').last].compact
+	end
 end
 
 

@@ -173,5 +173,5 @@ end
 	def employee_profile
 		@employee_profile = current_employee.employee_detail
 	end
-	
+	 
 end

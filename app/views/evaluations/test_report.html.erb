@@ -1,159 +1,420 @@
 <!DOCTYPE html>
 <html>
-<body>
-<%= form_tag '/evaluations/test_report' do %>
- <%= autocomplete_field_tag 'first_name', '','/evaluations/autocomplete_employee_detail_first_name', :size => 35%> 
-<%= submit_tag "Search", :name => nil %>
-<% end %></br></br></br>
+  <body>
+    <%= form_tag '/evaluations/test_report' do %>
+      <%= autocomplete_field_tag 'first_name', '','/evaluations/autocomplete_employee_detail_first_name', :size => 35%>
+      <%= submit_tag "Search", :name => nil %>
+    <% end %></br></br></br>
+    <%= form_tag '/evaluations/test_report' do %>
+      <%= select_month(14,:prompt => 'Choose month')%>
+      <%= submit_tag "Search", :name => nil %>
+    <% end %></br></br></br>
+
+    <% @eval_periods.each do |period| %>
+      <%= period.self_eval_start_date %>
+      <table border="1" align = "center">
+        <tr>
+          <th>Name</th>
+          <%@values.each do |val|%>
+            <th><%=val.title%></th>
+          <%end%>
+          <th>Total</th>
+        </tr>
+        <%@master_record_set.each_pair do |k,v|%>
+          <%if v.is_a?(Hash)%>
+            <% record= @superior_employees[k] %>
+          <% else %>
+            <% record = v %>
+          <% end %>
+          <tr id = <%= k%> class ="one" >
+              <td><div class="expnd" id=<%=k%>></div>
+            <%=link_to  record.name,"#",:class => "trial",:id => "#{k}"+"_"+"#{period.id}"%></td>
+            <% total_score = 0 %>
+            <%@values.each do |val|%>
+              <% eve = employee_evaluation  k, val, period %>
+              <% unless eve.blank?%>
+                <% eve.each do |ev| %>
+                  <% s = get_manager_score record , ev%>
+                  <td><%= s %></td>
+                  <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                <%end%>
+              <%else%>
+                <td>--</td>
+              <%end%>
+            <%end%>
+            <td><%=total_score == 0 ? '' : total_score%></td>
+
+
+            <%if v.is_a?(Hash)%>
+              <% v.each_pair do |k1,v1| %>
+                <%if v1.is_a?(Hash)%>
+                  <% record1 = @superior_employees[k1] %>
+                <% else %>
+                  <% record1 = v1 %>
+                <% end %>
+              <tr id = <%= k1%> class='superior_<%= k%>' style = "display:none" >
+                  <td>
+                      <% if @superior_ids.include?k1 %>
+                    <div class="expnd" id=<%=k1%>></div>
+                  <% end %>
+                  <%=link_to  record1.name,"#",:class => "trial",:id => "#{k1}"+"_"+"#{period.id}"%>
+                </td>
+                <% total_score = 0 %>
+                <%@values.each do |val|%>
+                  <% eve = employee_evaluation  k1, val, period %>
+                  <% unless eve.blank?%>
+                    <% eve.each do |ev| %>
+                      <% s = get_manager_score record1 , ev%>
+                      <td><%= s %></td>
+                      <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                    <%end%>
+                  <%else%>
+                    <td>--</td>
+                  <%end%>
+                <%end%>
+                <td><%=total_score == 0 ? '' : total_score%></td>
+              </tr>
+              <%if v1.is_a?(Hash)%>
+                <% v1.each_pair do |k2,v2| %>
+                  <%if v2.is_a?(Hash)%>
+                    <% record2 = @superior_employees[k2] %>
+                  <% else %>
+                    <% record2 = v2 %>
+                  <% end %>
+                  <tr id = <%= k2%>  class = 'superior_<%= k1%>' style = "display:none" >
+
+                      <td>
+                          <% if @superior_ids.include?k2 %>
+                        <div class="expnd" id=<%=k2%>></div>
+                      <% end %>
+                      <%=link_to  record2.name,"#",:class => "trial",:id => "#{k2}"+"_"+"#{period.id}"%></td>
+                      <% total_score = 0 %>
+                      <%@values.each do |val|%>
+                        <% eve = employee_evaluation  k2, val, period %>
+                        <% unless eve.blank?%>
+                          <% eve.each do |ev| %>
+                            <% s = get_manager_score record2 , ev%>
+                          <td><%= s %></td>
+                          <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                        <%end%>
+                      <%else%>
+                        <td>--</td>
+                      <%end%>
+                    <%end%>
+                    <td><%=total_score == 0 ? '' : total_score%></td>
 
 
 
-<%= form_tag '/evaluations/test_report' do %>
-<%= select_month(14,:prompt => 'Choose month')%>
-<%= submit_tag "Search", :name => nil %>
-<% end %></br></br></br>
+                    <%if v2.is_a?(Hash)%>
+                      <% v2.each_pair do |k3,v3| %>
+                        <%if v3.is_a?(Hash)%>
+                          <% record3 = @superior_employees[k3] %>
+                        <% else %>
+                          <% record3 = v3 %>
+                        <% end %>
+                      <tr id = <%= k3%> class = 'superior_<%= k2%>' style = "display:none">
+                          <td> <%=link_to  record3.name,"#",:class => "trial",:id => "#{k3}"+"_"+"#{period.id}"%></td>
+                            <% total_score = 0 %>
+                            <%@values.each do |val|%>
+                              <% eve = employee_evaluation  k3, val, period %>
+                              <% unless eve.blank?%>
+                                <% eve.each do |ev| %>
+                                  <% s = get_manager_score record3 , ev%>
+                              <td><%= s %></td>
+                              <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                            <%end%>
+                          <%else%>
+                            <td>--</td>
+                          <%end%>
+                        <%end%>
+                        <td><%=total_score == 0 ? '' : total_score%></td>
+                      <%end%>
+                    <% end %>
+                  </tr>
+                <%end%>
+              <% end %>
+            </tr>
+          <%end%>
+        <% end %>
+      <%end%>
+    </table>
+    <br/><br/><br/><br/>
 
-<% @eval_periods.each do |period| %>
-<%= period.self_eval_start_date %>
-	<table border="1" align = "center">
-		<tr>
-		  <th>Name</th>
-			<%@values.each do |val|%>
-					<th><%=val.title%></th>
-			<%end%>
-	 		<th>Total</th>
-		</tr>
-		<%@master_record_set.each_pair do |k,v|%>
-			<%if v.is_a?(Hash)%>
-				<% record= @superior_employees[k] %>
-			<% else %>
-				<% record = v %>
-			<% end %>
-		<tr id = <%= k%> class ="one" >
-<td><div class="expnd" id=<%=k%>></div>
-			<%= record.name%></td>
-		 	<% total_score = 0 %>
-			<%@values.each do |val|%>
-				<% eve = employee_last_evaluation  k, val, period %>
-				<% unless eve.blank?%>
-				  <% eve.each do |ev| %>
-				    <% s = get_manager_score record , ev%>
-				    <td><%= s %></td>
-				    <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
-				  <%end%> 
-				<%else%>
-				  <td>--</td>
-				<%end%>
-			<%end%>
-			<td><%=total_score == 0 ? '' : total_score%></td>
-			
+<%@master_record_set.each_pair do |k,v|%>
+  <%if v.is_a?(Hash)%>
+    <% record= @superior_employees[k] %>
+  <% else %>
+    <% record = v %>
+  <% end %>
+  <div id="dialog_<%="#{k}"+"_"+"#{period.id}"%>" title="<%= record.name%>">
+  
 
-			<%if v.is_a?(Hash)%>
-				<% v.each_pair do |k1,v1| %>
-					<%if v1.is_a?(Hash)%>
-						<% record1 = @superior_employees[k1] %>
-					<% else %>
-						<% record1 = v1 %>
-					<% end %>
-					<tr id = <%= k1%> class = 'superior_<%= k%>' style = "display:none" >
-					<td>
-						<% if @superior_ids.include?k1 %>
-							<div class="expnd" id=<%=k1%>></div>
-						<% end %>
-						<%= record1.name%>
-					</td>
-			 		<% total_score = 0 %>
-					<%@values.each do |val|%>
-						<% eve = employee_last_evaluation  k1, val, period %>
-						<% unless eve.blank?%>
-						  <% eve.each do |ev| %>
-						    <% s = get_manager_score record1 , ev%>
-						    <td><%= s %></td>
-						    <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
-						  <%end%> 
-						<%else%>
-						  <td>--</td>
-						<%end%>
-					<%end%>
-					<td><%=total_score == 0 ? '' : total_score%></td>
-</tr>
-					<%if v1.is_a?(Hash)%>
-						<% v1.each_pair do |k2,v2| %>
-							<%if v2.is_a?(Hash)%>
-								<% record2 = @superior_employees[k2] %>
-							<% else %>
-								<% record2 = v2 %>
-							<% end %>
-<tr id = <%= k2%>  class = 'superior_<%= k1%>' style = "display:none" >
+    <table border="1" align = "center">
+      <tr>
+        <th>Values</th>
+        <th>Selfpoints</th>
+        <th>Managerpoints</th>
+        <th>SelfComments</th>
+        <th>ManagerComments</th>
+      </tr>
+      <% total_score = 0 %>
+      <% score = 0 %>
+      <%@values.each do |val|%>
+        <% eve = employee_evaluation  k, val, period %>
+        <% unless eve.blank?%>
+          <% eve.each do |ev| %>
+          <tr>
+            <% s = get_self_score record , ev%>
+            <% m = get_manager_score record , ev%>
+            <td><%=val.title%></td>
+            <td><%= s %></td>
+            <td><%= m %></td>
+            <% ec = get_self_comment ev%>
+            <% ec.each do |o|%>
+              <td><%= o.evaluation_comment.comment%></td>
+            <% end %>
 
-							<td>
-								<% if @superior_ids.include?k2 %>
-									<div class="expnd" id=<%=k2%>></div>
-								<% end %>
-								<%= record2.name%></td>
-					 		<% total_score = 0 %>
-							<%@values.each do |val|%>
-								<% eve = employee_last_evaluation  k2, val, period %>
-								<% unless eve.blank?%>
-									<% eve.each do |ev| %>
-										<% s = get_manager_score record2 , ev%>
-										<td><%= s %></td>
-										<% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
-									<%end%> 
-								<%else%>
-									<td>--</td>
-								<%end%>
-							<%end%>
-							<td><%=total_score == 0 ? '' : total_score%></td>
+            </tr>
+            <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+            <% score+= (m == 'N/A' ? 0 : m.to_i) %>
+          <%end%>
+        <%else%>
+          <tr><td><%=val.title%></td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td></tr>
+        <%end%>
+      <%end%>
+      <tr><td>Total</td>
+        <td><%=total_score == 0 ? '' : total_score%></td>
+        <td><%=score == 0 ? '' : score%></td></tr>
+    </table>
+    <script>
+      $(function() {
+        $( "#dialog_"+ "<%="#{k}"+"_"+"#{period.id}"%>" ).dialog({
+          autoOpen: false,
+          width: 740,
+          modal: true
+        });
+        $( ".trial" ).click(function() {
+          $('#dialog_'+ this.id).dialog( "open" );
+        });
+      });
+    </script>
+  </div>
+  <%if v.is_a?(Hash)%>
+    <% v.each_pair do |k1,v1| %>
+      <%if v1.is_a?(Hash)%>
+        <% record1= @superior_employees[k1] %>
+      <% else %>
+        <% record1 = v1 %>
+      <% end %>
+
+        
+      <div id="dialog_<%="#{k1}"+"_"+"#{period.id}"%>" title="<%= record1.name%>">
+        <table border="1" align = "center">
+          <tr>
+            <th>Values</th>
+            <th>Selfpoints</th>
+            <th>Managerpoints</th>
+            <th>SelfComments</th>
+            <th>ManagerComments</th>
+          </tr>
+          <% total_score = 0 %>
+          <% score = 0 %>
+          <%@values.each do |val|%>
+            <% eve = employee_evaluation  k1, val, period %>
+            <% unless eve.blank?%>
+              <% eve.each do |ev| %>
+                <% s = get_self_score record1 , ev%>
+                <% m = get_manager_score record1 , ev%>
+                <td><%=val.title%></td>
+                <td><%= s %></td>
+                <td><%= m %></td>
+                <% ec = get_self_comment ev%>
+                <% ec.each do |o|%>
+                  <td><%= o.evaluation_comment.comment%></td>
+                <% end %>
+
+                </tr>
+                <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                <% score+= (m == 'N/A' ? 0 : m.to_i) %>
+              <%end%>
+            <%else%>
+              <tr><td><%=val.title%></td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td></tr>
+            <%end%>
+          <%end%>
+          <tr><td>Total</td>
+            <td><%=total_score == 0 ? '' : total_score%></td>
+            <td><%=score == 0 ? '' : score%></td></tr>
+
+        </table>
+        <script>
+          $(function() {
+            $( "#dialog_"+ "<%="#{k1}"+"_"+"#{period.id}"%>" ).dialog({
+              autoOpen: false,
+              width: 740,
+              modal: true
+            });
+            $( ".trial" ).click(function() {
+              $('#dialog_'+ this.id).dialog( "open" );
+            });
+          });
+        </script>
+      </div>
+
+      <%if v1.is_a?(Hash)%>
+        <% v1.each_pair do |k2,v2| %>
+          <%if v2.is_a?(Hash)%>
+            <% record2= @superior_employees[k2] %>
+          <% else %>
+            <% record2 = v2 %>
+          <% end %>
+         
+          <div id="dialog_<%="#{k2}"+"_"+"#{period.id}"%>" title="<%= record2.name%>">
+            <table border="1" align = "center">
+              <tr>
+                <th>Values</th>
+                <th>Selfpoints</th>
+                <th>Managerpoints</th>
+                <th>SelfComments</th>
+                <th>ManagerComments</th>
+              </tr>
+              <% total_score = 0 %>
+              <% score = 0 %>
+              <%@values.each do |val|%>
+                <% eve = employee_evaluation  k2, val, period %>
+                <% unless eve.blank?%>
+                  <% eve.each do |ev| %>
+                    <% s = get_self_score record2 , ev%>
+                    <% m = get_manager_score record2 , ev%>
+                    <td><%=val.title%></td>
+                    <td><%= s %></td>
+                    <td><%= m %></td>
+                    <% ec = get_self_comment ev%>
+                    <% ec.each do |o|%>
+                      <td><%= o.evaluation_comment.comment%></td>
+                    <% end %>
+
+                    </tr>
+                    <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                    <% score+= (m == 'N/A' ? 0 : m.to_i) %>
+                  <%end%>
+                <%else%>
+                  <tr><td><%=val.title%></td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td></tr>
+                <%end%>
+              <%end%>
+              <tr><td>Total</td>
+                <td><%=total_score == 0 ? '' : total_score%></td>
+                <td><%=score == 0 ? '' : score%></td></tr>
+            </table>
+            <script>
+              $(function() {
+                $( "#dialog_"+ "<%="#{k2}"+"_"+"#{period.id}"%>" ).dialog({
+                  autoOpen: false,
+                  width: 740,
+                  modal: true
+                });
+                $( ".trial" ).click(function() {
+                  $('#dialog_'+ this.id).dialog( "open" );
+                });
+              });
+            </script>
+          </div>
+
+
+          <%if v2.is_a?(Hash)%>
+            <% v2.each_pair do |k3,v3| %>
+              <%if v3.is_a?(Hash)%>
+                <% record3= @superior_employees[k3] %>
+              <% else %>
+                <% record3 = v3 %>
+              <% end %>
+        
+              <div id="dialog_<%="#{k3}"+"_"+"#{period.id}"%>" title="<%= record3.name%>">
+                <table border="1" align = "center">
+                  <tr>
+                    <th>Values</th>
+                    <th>Selfpoints</th>
+                    <th>Managerpoints</th>
+                    <th>SelfComments</th>
+                    <th>ManagerComments</th>
+                  </tr>
+                  <% total_score = 0 %>
+                  <% score = 0 %>
+                  <%@values.each do |val|%>
+                    <% eve = employee_evaluation  k3, val, period %>
+                    <% unless eve.blank?%>
+                      <% eve.each do |ev| %>
+                        <% s = get_self_score record3 , ev%>
+                        <% m = get_manager_score record3 , ev%>
+                        <td><%=val.title%></td>
+                        <td><%= s %></td>
+                        <td><%= m %></td>
+                        <% ec = get_self_comment ev%>
+                        <% ec.each do |o|%>
+                          <td><%= o.evaluation_comment.comment%></td>
+                        <% end %>
+
+                        </tr>
+                        <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                        <% score+= (m == 'N/A' ? 0 : m.to_i) %>
+                      <%end%>
+                    <%else%>
+                      <tr><td><%=val.title%></td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td></tr>
+                    <%end%>
+                  <%end%>
+                  <tr><td>Total</td>
+                    <td><%=total_score == 0 ? '' : total_score%></td>
+                    <td><%=score == 0 ? '' : score%></td></tr>
+                </table>
+              </div>
+              <script>
+                $(function() {
+                  $( "#dialog_"+ "<%="#{k3}"+"_"+"#{period.id}"%>" ).dialog({
+                    autoOpen: false,
+                    width: 740,
+                    modal: true
+
+                  });
+                  $( ".trial" ).click(function() {
+                    $('#dialog_'+ this.id).dialog( "open" );
+                  });
+                });
+              </script>
 
 
 
-							<%if v2.is_a?(Hash)%>
-								<% v2.each_pair do |k3,v3| %>
-									<%if v3.is_a?(Hash)%>
-										<% record3 = @superior_employees[k3] %>
-									<% else %>
-										<% record3 = v3 %>
-									<% end %>
-									<tr id = <%= k3%> class = 'superior_<%= k2%>' style = "display:none">
-									<td><%= record3.name%></td>
-							 		<% total_score = 0 %>
-									<%@values.each do |val|%>
-										<% eve = employee_last_evaluation  k3, val, period %>
-										<% unless eve.blank?%>
-											<% eve.each do |ev| %>
-												<% s = get_manager_score record3 , ev%>
-												<td><%= s %></td>
-												<% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
-											<%end%> 
-										<%else%>
-											<td>--</td>
-										<%end%>
-									<%end%>
-									<td><%=total_score == 0 ? '' : total_score%></td>
-								<%end%>
-							<% end %>
-							
-
-</tr>
-
-
-						<%end%>
-					<% end %>
-					
-		</tr>		
-
-				<%end%>
-			<% end %>
 
 
 
+            <% end %>
+
+          <%end%>
 
 
-		<%end%>
-	</table>
-</br></br></br></br>
-<% end %>
+        <%end%>
+
+      <%end%>
+    <%end%>
+
+  <%end%>
+
+<%end%>
+
 </body>
 
-
+ <% end %>
