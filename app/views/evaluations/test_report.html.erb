@@ -233,6 +233,7 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
+												<% unless ec.blank?%>
 												<td><%= ec[0].evaluation_comment.comment%></td>
 												<td><%= m %></td>
 												<td><%= ec[1].evaluation_comment.comment%></td>
@@ -296,6 +297,7 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
+												<% unless ec.blank?%>
 												<td><%= ec[0].evaluation_comment.comment%></td>
 												<td><%= m %></td>
 												<td><%= ec[1].evaluation_comment.comment%></td>
@@ -360,6 +362,7 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
+												<% unless ec.blank?%>
 												<td><%= ec[0].evaluation_comment.comment%></td>
 												<td><%= m %></td>
 												<td><%= ec[1].evaluation_comment.comment%></td>
