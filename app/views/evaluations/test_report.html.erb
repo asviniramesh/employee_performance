@@ -153,8 +153,8 @@
       <tr>
         <th>Values</th>
         <th>Selfpoints</th>
+				<th>SelfComments</th>
         <th>Managerpoints</th>
-        <th>SelfComments</th>
         <th>ManagerComments</th>
       </tr>
       <% total_score = 0 %>
@@ -212,13 +212,13 @@
       <% end %>
 
         
-      <div id="dialog_<%="#{k1}"+"_"+"#{period.id}"%>" title="<%= record1.name%>">
+      <div id="dialog_<%="#{k1}"+"_"+"#{period.id}"%>" title="<%= record1.name%> => <%= record.name%>">
         <table border="1" align = "center">
           <tr>
             <th>Values</th>
             <th>Selfpoints</th>
-            <th>Managerpoints</th>
             <th>SelfComments</th>
+						<th>Managerpoints</th>
             <th>ManagerComments</th>
           </tr>
           <% total_score = 0 %>
@@ -276,13 +276,13 @@
             <% record2 = v2 %>
           <% end %>
          
-          <div id="dialog_<%="#{k2}"+"_"+"#{period.id}"%>" title="<%= record2.name%>">
+          <div id="dialog_<%="#{k2}"+"_"+"#{period.id}"%>" title="<%= record2.name%> => <%= record1.name%>">
             <table border="1" align = "center">
               <tr>
                 <th>Values</th>
                 <th>Selfpoints</th>
+								<th>SelfComments</th>
                 <th>Managerpoints</th>
-                <th>SelfComments</th>
                 <th>ManagerComments</th>
               </tr>
               <% total_score = 0 %>
@@ -340,13 +340,13 @@
                 <% record3 = v3 %>
               <% end %>
         
-              <div id="dialog_<%="#{k3}"+"_"+"#{period.id}"%>" title="<%= record3.name%>">
+              <div id="dialog_<%="#{k3}"+"_"+"#{period.id}"%>" title="<%= record3.name%> => <%= record2.name%>">
                 <table border="1" align = "center">
                   <tr>
                     <th>Values</th>
                     <th>Selfpoints</th>
+								   <th>SelfComments</th>
                     <th>Managerpoints</th>
-                    <th>SelfComments</th>
                     <th>ManagerComments</th>
                   </tr>
                   <% total_score = 0 %>
