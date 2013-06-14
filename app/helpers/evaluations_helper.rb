@@ -38,7 +38,7 @@ module EvaluationsHelper
 	def get_self_comment ev
 		ec = []
 		ev.evaluation_scores.each do |c|
-			ec << c.evaluation_comment 
+			ec << c.evaluation_comment unless c.nil?
 		end
   end
 

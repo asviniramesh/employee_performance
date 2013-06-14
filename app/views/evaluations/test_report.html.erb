@@ -169,10 +169,13 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
+<%unless ec[0].blank?%>
 												<td><%= ec[0].evaluation_comment.comment%></td>
+<%end%>
 												<td><%= m %></td>
+<%unless ec[1].blank?%>
 												<td><%= ec[1].evaluation_comment.comment%></td>
-
+<%end%>
             </tr>
             <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
             <% score+= (m == 'N/A' ? 0 : m.to_i) %>
@@ -232,9 +235,13 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
+<%unless ec[0].blank?%>
 												<td><%= ec[0].evaluation_comment.comment%></td>
+<%end%>
 												<td><%= m %></td>
+<%unless ec[1].blank?%>
 												<td><%= ec[1].evaluation_comment.comment%></td>
+<%end%>
                 </tr>
                 <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
                 <% score+= (m == 'N/A' ? 0 : m.to_i) %>
@@ -295,9 +302,13 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
+<%unless ec[0].blank?%>
 												<td><%= ec[0].evaluation_comment.comment%></td>
+<%end%>
 												<td><%= m %></td>
+<%unless ec[1].blank?%>
 												<td><%= ec[1].evaluation_comment.comment%></td>
+<%end%>
 
                     </tr>
                     <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
@@ -359,10 +370,13 @@
 												<% ec = get_self_comment ev%>
 												<td><%=val.title%></td>
 												<td><%= s %></td>
-												<td><%= ec[0].evaluation_comment.comment%></td>
+<%unless ec[0].blank?%>
+												<td><%= ec[0].evaluation_comment.comment%>
+</td><%end%>
 												<td><%= m %></td>
+<%unless ec[0].blank?%>
 												<td><%= ec[1].evaluation_comment.comment%></td>
-
+<%end%>
                         </tr>
                         <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
                         <% score+= (m == 'N/A' ? 0 : m.to_i) %>
