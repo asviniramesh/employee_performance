@@ -164,15 +164,14 @@
         <% unless eve.blank?%>
           <% eve.each do |ev| %>
           <tr>
-            <% s = get_self_score record , ev%>
-            <% m = get_manager_score record , ev%>
-            <td><%=val.title%></td>
-            <td><%= s %></td>
-            <td><%= m %></td>
-            <% ec = get_self_comment ev%>
-            <% ec.each do |o|%>
-              <td><%= o.evaluation_comment.comment%></td>
-            <% end %>
+             <% s = get_self_score record , ev%>
+												<% m = get_manager_score record , ev%>
+												<% ec = get_self_comment ev%>
+												<td><%=val.title%></td>
+												<td><%= s %></td>
+												<td><%= ec[0].evaluation_comment.comment%></td>
+												<td><%= m %></td>
+												<td><%= ec[1].evaluation_comment.comment%></td>
 
             </tr>
             <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
@@ -228,15 +227,13 @@
             <% unless eve.blank?%>
               <% eve.each do |ev| %>
                 <% s = get_self_score record1 , ev%>
-                <% m = get_manager_score record1 , ev%>
-                <td><%=val.title%></td>
-                <td><%= s %></td>
-                <td><%= m %></td>
-                <% ec = get_self_comment ev%>
-                <% ec.each do |o|%>
-                  <td><%= o.evaluation_comment.comment%></td>
-                <% end %>
-
+												<% m = get_manager_score record1 , ev%>
+												<% ec = get_self_comment ev%>
+												<td><%=val.title%></td>
+												<td><%= s %></td>
+												<td><%= ec[0].evaluation_comment.comment%></td>
+												<td><%= m %></td>
+												<td><%= ec[1].evaluation_comment.comment%></td>
                 </tr>
                 <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
                 <% score+= (m == 'N/A' ? 0 : m.to_i) %>
@@ -292,14 +289,13 @@
                 <% unless eve.blank?%>
                   <% eve.each do |ev| %>
                     <% s = get_self_score record2 , ev%>
-                    <% m = get_manager_score record2 , ev%>
-                    <td><%=val.title%></td>
-                    <td><%= s %></td>
-                    <td><%= m %></td>
-                    <% ec = get_self_comment ev%>
-                    <% ec.each do |o|%>
-                      <td><%= o.evaluation_comment.comment%></td>
-                    <% end %>
+												<% m = get_manager_score record2 , ev%>
+												<% ec = get_self_comment ev%>
+												<td><%=val.title%></td>
+												<td><%= s %></td>
+												<td><%= ec[0].evaluation_comment.comment%></td>
+												<td><%= m %></td>
+												<td><%= ec[1].evaluation_comment.comment%></td>
 
                     </tr>
                     <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
@@ -356,14 +352,13 @@
                     <% unless eve.blank?%>
                       <% eve.each do |ev| %>
                         <% s = get_self_score record3 , ev%>
-                        <% m = get_manager_score record3 , ev%>
-                        <td><%=val.title%></td>
-                        <td><%= s %></td>
-                        <td><%= m %></td>
-                        <% ec = get_self_comment ev%>
-                        <% ec.each do |o|%>
-                          <td><%= o.evaluation_comment.comment%></td>
-                        <% end %>
+												<% m = get_manager_score record3 , ev%>
+												<% ec = get_self_comment ev%>
+												<td><%=val.title%></td>
+												<td><%= s %></td>
+												<td><%= ec[0].evaluation_comment.comment%></td>
+												<td><%= m %></td>
+												<td><%= ec[1].evaluation_comment.comment%></td>
 
                         </tr>
                         <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
