@@ -11,7 +11,12 @@
     <% @eval_periods.each do |period| %>
 
 <Row>
+			<Cell><Data ss:Type="string">Start Date</Data></Cell>
       <Cell><Data ss:Type="string"><%= period.self_eval_start_date %></Data></Cell>
+</Row>
+<Row>
+			<Cell><Data ss:Type="string">End Date</Data></Cell>
+			<Cell><Data ss:Type="string"><%= period.self_eval_end_date %></Data></Cell>
 </Row>
 
 <Row>
