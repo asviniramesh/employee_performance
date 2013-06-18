@@ -111,6 +111,9 @@ Evaluation.where('evaluation_status_id = ? and employee_id = ?',EvaluationStatus
 end
 
 		def test_report
+			if params[:month]
+				@dates = params[:month]
+			end
 			if params[:date]
 				month = "0" + params[:date][:month] 
 				@dates = []
@@ -155,6 +158,10 @@ end
 				end
 				end
 			end
+		respond_to do |format|
+    format.html
+    format.xls # { send_data @master_record_set.to_csv(col_sep: "\t") }
+  end
 		end
 	
 	def team
@@ -174,4 +181,6 @@ end
 		@employee_profile = current_employee.employee_detail
 	end
 	 
+
+
 end

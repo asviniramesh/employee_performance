@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Evaluation Report">
+    <Table>
+					
+
+    <% @eval_periods.each do |period| %>
+
+<Row>
+      <Cell><Data ss:Type="string"><%= period.self_eval_start_date %></Data></Cell>
+</Row>
+
+<Row>
+								  <Cell><Data ss:Type="String">Name</Data></Cell>
+								  <%@values.each do |val|%>
+								    <Cell><Data ss:Type="String"><%=val.title%></Data></Cell>
+								  <%end%>
+								  <Cell><Data ss:Type="String">Total</Data></Cell>
+</Row>
+
+								<%@master_record_set.each_pair do |k,v|%>
+<Row>
+          <%if v.is_a?(Hash)%>
+            <% record= @superior_employees[k] %>
+          <% else %>
+            <% record = v %>
+          <% end %>
+
+             <Cell><Data ss:Type="String"><%= record.name %></Data></Cell>
+            <% total_score = 0 %>
+            <%@values.each do |val|%>
+              <% eve = employee_evaluation  k, val, period %>
+              <% unless eve.blank?%>
+                <% eve.each do |ev| %>
+                  <% s = get_manager_score record , ev%>
+                   <Cell><Data ss:Type="Number"><%= s %></Data></Cell>
+                  <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                <%end%>
+              <%else%>
+									 <Cell><Data ss:Type="Number"></Data></Cell>
+              <%end%>
+            <%end%>
+             <Cell><Data ss:Type="Number"><%=total_score == 0 ? '' : total_score%></Data></Cell>
+
+						</Row>
+						<Row>
+							<%if v.is_a?(Hash)%>
+              <% v.each_pair do |k1,v1| %>
+                <%if v1.is_a?(Hash)%>
+                  <% record1 = @superior_employees[k1] %>
+                <% else %>
+                  <% record1 = v1 %>
+                <% end %>
+                  <Cell><Data ss:Type="String"><%= record1.name%></Data></Cell>
+                <% total_score = 0 %>
+                <%@values.each do |val|%>
+                  <% eve = employee_evaluation  k1, val, period %>
+                  <% unless eve.blank?%>
+                    <% eve.each do |ev| %>
+                      <% s = get_manager_score record1 , ev%>
+                      <Cell><Data ss:Type="Number"><%= s %></Data></Cell>
+                      <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                    <%end%>
+                  <%else%>
+                    <Cell><Data ss:Type="Number"></Data></Cell>
+                  <%end%>
+                <%end%>
+                <Cell><Data ss:Type="Number"><%=total_score == 0 ? '' : total_score%></Data></Cell>
+</Row>
+
+
+<Row>
+
+							<%if v1.is_a?(Hash)%>
+                <% v1.each_pair do |k2,v2| %>
+                  <%if v2.is_a?(Hash)%>
+                    <% record2 = @superior_employees[k2] %>
+                  <% else %>
+                    <% record2 = v2 %>
+                  <% end %>
+                      <Cell><Data ss:Type="String"><%= record2.name%></Data></Cell>
+                      <% total_score = 0 %>
+                      <%@values.each do |val|%>
+                        <% eve = employee_evaluation  k2, val, period%>
+                        <% unless eve.blank?%>
+                          <% eve.each do |ev| %>
+                            <% s = get_manager_score record2 , ev%>
+                          <Cell><Data ss:Type="Number"><%= s %></Data></Cell>
+                          <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                        <%end%>
+                      <%else%>
+													<Cell><Data ss:Type="Number"></Data></Cell>
+                      <%end%>
+                    <%end%>
+                    <Cell><Data ss:Type="Number"><%=total_score == 0 ? '' : total_score%></Data></Cell>
+
+</Row>
+<Row>
+
+													 <%if v2.is_a?(Hash)%>
+                      <% v2.each_pair do |k3,v3| %>
+                        <%if v3.is_a?(Hash)%>
+                          <% record3 = @superior_employees[k3] %>
+                        <% else %>
+                          <% record3 = v3 %>
+                        <% end %>
+
+                           <Cell><Data ss:Type="String"><%=  record3.name%></Data></Cell>
+                            <% total_score = 0 %>
+                            <%@values.each do |val|%>
+                              <% eve = employee_evaluation  k3, val, period %>
+                              <% unless eve.blank?%>
+                                <% eve.each do |ev| %>
+                                  <% s = get_manager_score record3 , ev%>
+                              <Cell><Data ss:Type="Number"><%= s %></Data></Cell>
+                              <% total_score+= (s == 'N/A' ? 0 : s.to_i) %>
+                            <%end%>
+                          <%else%>
+														<Cell><Data ss:Type="Number"></Data></Cell>
+                          <%end%>
+                        <%end%>
+                       			<Cell><Data ss:Type="Number"><%=total_score == 0 ? '' : total_score%></Data></Cell>
+</Row>
+<Row>
+																<%end%>
+														<%end%>	
+
+										<%end%>
+							<%end%>	
+
+				<%end%>
+		<%end%>
+</Row>
+<%end%>
+<%end%>
+
+
+
+    </Table>
+  </Worksheet>
+</Workbook>
+
